@@ -18,7 +18,7 @@ router.get('/test', function (req, res, next) {
     type: '', // 'directory' | 'file'
     name: '',
     size: '',
-    mtime: '', // 생성일시
+    mtime: '',
     link: '',
     child: [] // 디렉토리일 경우 하위 파일 목록
   }
@@ -44,8 +44,8 @@ router.get('/test', function (req, res, next) {
 
     let child = [];
 
-    for(let i=0, il=fileList.length; i<il; i++) {
-      const subTarget = target+'/'+fileList[i];
+    for (let i = 0, il = fileList.length; i < il; i++) {
+      const subTarget = target + '/' + fileList[i];
       const subFileStats = fs.statSync(subTarget);
       const readSubFileSize = spawnSync('du', ['-sb', subTarget]);
 
