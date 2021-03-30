@@ -156,7 +156,14 @@ const getFileSizeFromPath = path => {
         const readFileSize = spawnSync("powershell.exe", [command]);
         size = readFileSize.stdout.toString().replace(/\r\n/, '');
     } else if (osType == 'Mac') {
-        // TODO: du -b 옵션이 없어서 고민 해봐야 함...
+        /**
+         * 맥은 b: byte 단위 표시가 없고, k: KB 단위부터 옵션을 줄 수 있다.
+         * 단위옵션 없이 조회할 경우 "512바이트 = 1블록" 으로 결과값을 리턴한다.
+         * 따라서 결과값*512 값을 주어 다른 운영체제 리턴값과 동일한 형식으로 설정한다.
+         */
+        const readFileSize = spawnSync('du', ['-s', path]);
+        size = readFileSize.stdout.toString().replace(/^(\d*)?\t.*\n$/, '$1');
+        size = Number(size)*512;
     } else if (osType == 'Linux') {
         const readFileSize = spawnSync('du', ['-sb', path]);
         size = readFileSize.stdout.toString().replace(/^(\d*)?\t.*\n$/, '$1');
