@@ -2,15 +2,17 @@
  * 파일 업로드를 관리하는 스크립트
  */
 const fs = require('fs');
+const pathUtil = require("path");
 const multer = require('multer');
+const spawnSync = require('child_process').spawnSync;
 const commonUtil = require('./commonUtil');
 
 /**
- * 디렉터리 경로 마지막에 /를 포함하여 반환합니다.
+ * 경로 마지막에 separators를 포함하여 반환합니다.
  * @param {String} path 디렉터리 경로
- * @return {String} 마지막에 /가 포함된 디렉터리 경로
+ * @return {String} 마지막에 separators가 포함된 디렉터리 경로
  */
-const getFixedPath = path => path[path.length - 1] === '/' ? path : path + '/';
+const getFixedPath = path => path[path.length - 1] === pathUtil.sep ? path : path + pathUtil.sep;
 
 /**
  * 경로를 받아 파일 이름을 반환합니다.
@@ -18,7 +20,7 @@ const getFixedPath = path => path[path.length - 1] === '/' ? path : path + '/';
  * @returns 
  */
 const getFileNameFromPath = (path) => {
-    const splitPath = path.split('/');
+    const splitPath = path.split(pathUtil.sep);
     let result = splitPath[splitPath.length - 1];
     return result;
 }
@@ -105,7 +107,7 @@ const uploadSetting = (path, fileNameType) => {
  * @param {Object} response response
  */
 const sendChunkFile = (path, fileName, request, response) => {
-    const file = `${getFixedPath(path)}${fileName}`;
+    const file = getFixedPath(path) + fileName;
     let contentType = mime(fileName.replace(/.*\./, ''));
 
     const stats = fs.statSync(file);
@@ -140,12 +142,19 @@ const sendChunkFile = (path, fileName, request, response) => {
     }
 }
 
+/**
+ * 파일경로를 받아 파일 정보를 반환합니다.
+ * @param {String} path 파일 경로
+ * @return {Number} 파일 용량(Byte)
+ */
 const getFileSizeFromPath = path => {
     let size = 0;
     const osType = commonUtil.getOsType();
 
-    if(osType == 'Windows') {
-        // TODO: 아마 파워쉘 기준으로 작성 해야할 듯...
+    if (osType == 'Windows') {
+        const command = `(gci "${pathUtil.normalize(path)}" | measure Length -s).sum`;
+        const readFileSize = spawnSync("powershell.exe", [command]);
+        size = readFileSize.stdout.toString().replace(/\r\n/, '');
     } else if (osType == 'Mac') {
         // TODO: du -b 옵션이 없어서 고민 해봐야 함...
     } else if (osType == 'Linux') {
@@ -153,12 +162,12 @@ const getFileSizeFromPath = path => {
         size = readFileSize.stdout.toString().replace(/^(\d*)?\t.*\n$/, '$1');
     }
 
-    return size;
+    return Number(size);
 }
 
 /**
  * 파일경로를 받아 파일 정보를 반환합니다.
- * @param {String} path 디렉터리 경로
+ * @param {String} path 파일 경로
  * @return {JSON} 파일정보(타입, 이름, 용량, 생성시간 등...)
  */
 const getFileInfoFromPath = path => {
@@ -168,7 +177,7 @@ const getFileInfoFromPath = path => {
         size: '',
         mtime: '',
         // link: '',
-        child: [] // 디렉토리일 경우 하위 파일 목록
+        child: [] // 디렉터리일 경우 하위 파일 목록
     }
 
     const stats = fs.statSync(path); //파일정보 로드
@@ -177,14 +186,14 @@ const getFileInfoFromPath = path => {
     fileInfo.name = getFileNameFromPath(path);
     fileInfo.size = getFileSizeFromPath(path);
     fileInfo.mtime = stats.mtime;
-    
+
     if (fileInfo.type == 'directory') {
-        const subFileList = fs.readdirSync(path); // 디렉토리 내부정보 로드
+        const subFileList = fs.readdirSync(path); // 디렉터리 내부정보 로드
 
         let child = [];
 
         for (let i = 0, il = subFileList.length; i < il; i++) {
-            const subFilePath = path + '/' + subFileList[i];
+            const subFilePath = getFixedPath(path) + subFileList[i];
             const subFileStats = fs.statSync(subFilePath);
 
             child[i] = {
@@ -197,6 +206,8 @@ const getFileInfoFromPath = path => {
 
         fileInfo.child = child;
     }
+
+    return fileInfo;
 }
 
 exports.getFileNameFromPath = getFileNameFromPath;

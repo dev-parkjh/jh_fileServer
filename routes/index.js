@@ -1,10 +1,10 @@
 const express = require('express');
 const fs = require('fs');
-const spawnSync = require('child_process').spawnSync;
-const fileControl = require('../scripts/fileControl');
+const pathUtil = require("path");
+const fileUtil = require('../scripts/fileUtil');
 const router = express.Router();
 
-const dataFolder = __dirname + '/../data';
+const dataFolder = pathUtil.normalize(__dirname + '/../data');
 
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
@@ -21,7 +21,7 @@ router.get('/file', (req, res, next) => {
    */
 
   const filePath = dataFolder; //params.filePath
-  const fileInfo = fileControl.getFileInfoFromPath(filePath);
+  const fileInfo = fileUtil.getFileInfoFromPath(filePath);
 
   res.json(fileInfo);
 });
