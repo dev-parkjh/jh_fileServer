@@ -20,47 +20,8 @@ router.get('/file', (req, res, next) => {
    * 히든파일 표시여부
    */
 
-  const target = dataFolder;
-
-  const fileInfo = {
-    type: '', // 'directory' | 'file'
-    name: '',
-    size: '',
-    mtime: '',
-    link: '',
-    child: [] // 디렉토리일 경우 하위 파일 목록
-  }
-
-  //파일정보 로드
-  const stats = fs.statSync(target);
-  const readFileSize = spawnSync('du', ['-sb', target]);
-
-  fileInfo.type = stats.isDirectory() ? 'directory' : 'file';
-  fileInfo.name = fileControl.getFileNameFromPath(target);
-  fileInfo.size = readFileSize.stdout.toString().replace(/^(\d*)?\t.*\n$/, '$1');
-  fileInfo.mtime = stats.mtime;
-
-  // 디렉토리 내부정보 로드
-  if (fileInfo.type == 'directory') {
-    const fileList = fs.readdirSync(target);
-
-    let child = [];
-
-    for (let i = 0, il = fileList.length; i < il; i++) {
-      const subTarget = target + '/' + fileList[i];
-      const subFileStats = fs.statSync(subTarget);
-      const readSubFileSize = spawnSync('du', ['-sb', subTarget]);
-
-      child[i] = {
-        type: subFileStats.isDirectory() ? 'directory' : 'file',
-        name: fileList[i],
-        size: readSubFileSize.stdout.toString().replace(/^(\d*)?\t.*\n$/, '$1'),
-        mtime: subFileStats.mtime
-      }
-    }
-
-    fileInfo.child = child;
-  }
+  const filePath = dataFolder; //params.filePath
+  const fileInfo = fileControl.getFileInfoFromPath(filePath);
 
   res.json(fileInfo);
 });

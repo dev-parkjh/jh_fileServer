@@ -1,8 +1,9 @@
 /**
  * 파일 업로드를 관리하는 스크립트
  */
-var fs = require('fs');
+const fs = require('fs');
 const multer = require('multer');
+const commonUtil = require('./commonUtil');
 
 /**
  * 디렉터리 경로 마지막에 /를 포함하여 반환합니다.
@@ -12,7 +13,7 @@ const multer = require('multer');
 const getFixedPath = path => path[path.length - 1] === '/' ? path : path + '/';
 
 /**
- * 경로를 받아 파일 이름을 반환합니다
+ * 경로를 받아 파일 이름을 반환합니다.
  * @param {String} path
  * @returns 
  */
@@ -139,6 +140,66 @@ const sendChunkFile = (path, fileName, request, response) => {
     }
 }
 
+const getFileSizeFromPath = path => {
+    let size = 0;
+    const osType = commonUtil.getOsType();
+
+    if(osType == 'Windows') {
+        // TODO: 아마 파워쉘 기준으로 작성 해야할 듯...
+    } else if (osType == 'Mac') {
+        // TODO: du -b 옵션이 없어서 고민 해봐야 함...
+    } else if (osType == 'Linux') {
+        const readFileSize = spawnSync('du', ['-sb', path]);
+        size = readFileSize.stdout.toString().replace(/^(\d*)?\t.*\n$/, '$1');
+    }
+
+    return size;
+}
+
+/**
+ * 파일경로를 받아 파일 정보를 반환합니다.
+ * @param {String} path 디렉터리 경로
+ * @return {JSON} 파일정보(타입, 이름, 용량, 생성시간 등...)
+ */
+const getFileInfoFromPath = path => {
+    const fileInfo = {
+        type: '', // 'directory' | 'file'
+        name: '',
+        size: '',
+        mtime: '',
+        // link: '',
+        child: [] // 디렉토리일 경우 하위 파일 목록
+    }
+
+    const stats = fs.statSync(path); //파일정보 로드
+
+    fileInfo.type = stats.isDirectory() ? 'directory' : 'file';
+    fileInfo.name = getFileNameFromPath(path);
+    fileInfo.size = getFileSizeFromPath(path);
+    fileInfo.mtime = stats.mtime;
+    
+    if (fileInfo.type == 'directory') {
+        const subFileList = fs.readdirSync(path); // 디렉토리 내부정보 로드
+
+        let child = [];
+
+        for (let i = 0, il = subFileList.length; i < il; i++) {
+            const subFilePath = path + '/' + subFileList[i];
+            const subFileStats = fs.statSync(subFilePath);
+
+            child[i] = {
+                type: subFileStats.isDirectory() ? 'directory' : 'file',
+                name: subFileList[i],
+                size: getFileSizeFromPath(subFilePath),
+                mtime: subFileStats.mtime
+            }
+        }
+
+        fileInfo.child = child;
+    }
+}
+
 exports.getFileNameFromPath = getFileNameFromPath;
+exports.getFileInfoFromPath = getFileInfoFromPath;
 exports.uploadSetting = uploadSetting;
 exports.sendChunkFile = sendChunkFile;
