@@ -1,5 +1,17 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/javascripts/external/axios.min.js")
+    script(src="/javascripts/external/vue.min.js")
+  body
+    #app 
+      header 
+        nav 
+      aside 
+      section
+        article
+         div(v-if="fileInfo.type == 'directory'" v-for="file in fileInfo.child" :key="file.name") {{ file.name }} ({{ getEasyFileSize(file.size) }}, {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}) 
+      footer 
+    script(src="/javascripts/views/vIndex.js")
