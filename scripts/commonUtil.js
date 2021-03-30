@@ -3,7 +3,7 @@
  * @return {String} 운영체제 종류('Windows'|Mac'|'Linux')
  */
 const getOsType = () => {
-    let osType = 'windows';
+    let osType = '';
 
     switch (process.platform) {
         case 'win32':
