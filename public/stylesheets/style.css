@@ -1,8 +1,33 @@
-body {
-  /* padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+html, body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  overflow: hidden;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
 }
 
 a {
   color: #00B7FF;
+}
+
+#app {
+  height: 100%;
+}
+
+header {
+  width: auto;
+  height: 48px;
+  padding: 8px;
+  border-bottom: #cccccc solid 1px;
+}
+
+aside {
+  width: 256px;
+  height: 100%;
+  float: left;
+  border-right: #cccccc solid 1px;
+}
+
+section {
+  float: left;
 }

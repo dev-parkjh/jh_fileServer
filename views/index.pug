@@ -9,9 +9,31 @@ html
     #app 
       header 
         nav 
-      aside 
+      aside
+        //- ul
+          li 공유폴더
+          li 내 폴더
+          li 휴지통
       section
         article
-         div(v-if="fileInfo.type == 'directory'" v-for="file in fileInfo.child" :key="file.name") {{ file.name }} ({{ getEasyFileSize(file.size) }}, {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}) 
+          div {{ fileInfo }}
+          table
+            tr
+              th
+              th 
+              th 이름
+              th 날짜
+              th 타입
+              th 크기
+            //- tmplate(v-if="fileInfo.child.length != 0")
+              tr(v-for="file in fileInfo.child" :key="file.name")
+                td 
+                td 
+                td {{ file.name }}
+                td {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
+                td {{ file.extType }}
+                td {{ getEasyFileSize(file.size) }}
+
+          //- div(v-if="fileInfo.type == 'directory'" v-for="file in fileInfo.child" :key="file.name") {{ file.name }} ({{ getEasyFileSize(file.size) }}, {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}) 
       footer 
     script(src="/javascripts/views/vIndex.js")

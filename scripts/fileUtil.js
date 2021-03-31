@@ -163,7 +163,7 @@ const getFileSizeFromPath = path => {
          */
         const readFileSize = spawnSync('du', ['-s', path]);
         size = readFileSize.stdout.toString().replace(/^(\d*)?\t.*\n$/, '$1');
-        size = Number(size)*512;
+        size = Number(size) * 512;
     } else if (osType == 'Linux') {
         const readFileSize = spawnSync('du', ['-sb', path]);
         size = readFileSize.stdout.toString().replace(/^(\d*)?\t.*\n$/, '$1');
@@ -171,6 +171,26 @@ const getFileSizeFromPath = path => {
 
     return Number(size);
 }
+
+/**
+ * 파일경로를 받아 확장자를 반환합니다.
+ * @param {String} path 파일 경로
+ * @return {String} 확장자
+ */
+const getExtensionTypeFromPath = path => {
+    const pathArray = path.split(pathUtil.sep);
+    const fileName = pathArray[pathArray.length-1];
+
+    let extensionType = '';
+    let dotPosition = fileName.lastIndexOf('.');
+
+    if (dotPosition != -1) {
+        extensionType = fileName.substring(dotPosition, path.length).toLowerCase();
+    }
+
+    return extensionType;
+}
+
 
 /**
  * 파일경로를 받아 파일 정보를 반환합니다.
@@ -183,7 +203,7 @@ const getFileInfoFromPath = path => {
         name: '',
         size: '',
         mtime: '',
-        // link: '',
+        extType: '',
         child: [] // 디렉터리일 경우 하위 파일 목록
     }
 
@@ -193,6 +213,7 @@ const getFileInfoFromPath = path => {
     fileInfo.name = getFileNameFromPath(path);
     fileInfo.size = getFileSizeFromPath(path);
     fileInfo.mtime = stats.mtime;
+    fileInfo.ext = stats.isDirectory() ? '' : getExtensionTypeFromPath(path);
 
     if (fileInfo.type == 'directory') {
         const subFileList = fs.readdirSync(path); // 디렉터리 내부정보 로드
@@ -207,6 +228,7 @@ const getFileInfoFromPath = path => {
                 type: subFileStats.isDirectory() ? 'directory' : 'file',
                 name: subFileList[i],
                 size: getFileSizeFromPath(subFilePath),
+                extType: subFileStats.isDirectory() ? '' : getExtensionTypeFromPath(subFilePath),
                 mtime: subFileStats.mtime
             }
         }

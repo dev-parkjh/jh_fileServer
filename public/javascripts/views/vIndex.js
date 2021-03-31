@@ -2,8 +2,17 @@
 
 const app = new Vue({
     el: '#app',
-    data: {
-        fileInfo: []
+    data: () => {
+        return {
+            fileInfo: {
+                type: '',
+                name: '',
+                size: '',
+                ext: '',
+                mtime: '',
+                child: []
+            }
+        }
     },
     methods: {
         getEasyFileSize: size => {
@@ -18,7 +27,7 @@ const app = new Vue({
         getFileList: () => {
             axios.get('/file')
                 .then(response => {
-                    app._data.fileInfo = response.data;
+                    this.fileInfo = response.data;
                 });
         },
         test: () => {
