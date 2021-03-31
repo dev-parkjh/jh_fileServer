@@ -22,30 +22,47 @@ html
               div(id="context-title-icon")
                 span(class="material-icons md-56") folder_open
               div(id="context-title-info")
-                div(id="context-title-name") {{ fileInfo.name  }}
+                div(id="context-title-name") {{ mainDirInfo.name  }}
                 div(id="context-title-subinfo")
-                  span(id="context-title-items") {{ fileInfo.child.length }} items
-                  span Total space used on {{ getEasyFileSize(fileInfo.size) }}
+                  span(id="context-title-items") {{ mainDirInfo.child.length }} items
+                  span Total space used on {{ getEasyFileSize(mainDirInfo.size) }}
             table(id="file-table")
               thead 
-                tr
+                tr(class="no-drag")
                   th(class="file-chkbox-header")
                   th(class="file-icon-header") 
-                  th(class="file-name-header") Name
-                  th(class="file-mtime-header") Date
-                  th(class="file-ext-type-header") Type
-                  th(class="file-size-header") Size
+                  th(class="file-name-header")
+                    sapn(@click="sortFileList(mainDirInfo.child, 'name', sortInfo.target == 'name' && sortInfo.direction == 'asc' ? 'desc' : 'asc')" class="file-table-sort")
+                      span(class="file-table-th") Name
+                      i(v-show="sortInfo.target == 'name'" class="material-icons md-18 font-color-gray") {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
+                  th(class="file-mtime-header")
+                    sapn(@click="sortFileList(mainDirInfo.child, 'mtime', sortInfo.target == 'mtime' && sortInfo.direction == 'asc' ? 'desc' : 'asc')" class="file-table-sort")
+                      span(class="file-table-th") Date
+                      i(v-show="sortInfo.target == 'mtime'" class="material-icons md-18 font-color-gray") {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
+                  th(class="file-ext-type-header")
+                    sapn(@click="sortFileList(mainDirInfo.child, 'ext', sortInfo.target == 'ext' && sortInfo.direction == 'asc' ? 'desc' : 'asc')" class="file-table-sort")
+                      span(class="file-table-th") Type
+                      i(v-show="sortInfo.target == 'ext'" class="material-icons md-18 font-color-gray") {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
+                  th(class="file-size-header")
+                    sapn(@click="sortFileList(mainDirInfo.child, 'size', sortInfo.target == 'size' && sortInfo.direction == 'asc' ? 'desc' : 'asc')" class="file-table-sort")
+                      span(class="file-table-th") Size
+                      i(v-show="sortInfo.target == 'size'" class="material-icons md-18 font-color-gray") {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
               tbody 
-                template(v-if="fileInfo.child.length != 0")
-                  tr(v-for="file in fileInfo.child" :key="file.name" class="file-tr")
+                template(v-if="mainDirInfo.child.length != 0")
+                  tr(v-for="file in mainDirInfo.child" :key="file.name" class="file-tr")
                     td(class="file-chkbox")
                       input(type="checkbox" name="file-chkbox-list" :value="file.name")
                     td(class="file-icon")
-                      span(class="material-icons") {{ getIconFromExtension(file.ext) }}
+                      i(class="material-icons") {{ getIconFromExt(file.ext) }}
                     td(class="file-name") {{ file.name }}
                     td(class="file-mtime") {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
-                    td(class="file-ext-type") {{ file.extType }}
+                    td(class="file-ext-type") {{ file.extCmt }}
                     td(class="file-size") {{ getEasyFileSize(file.size) }}
+                template(v-if="mainDirInfo.child.length == 0")
+                  tr
+                    td 
+                    td 
+                    td(colspan="4") 파일이 없습니다.
 
             //- div(v-if="fileInfo.type == 'directory'" v-for="file in fileInfo.child" :key="file.name") {{ file.name }} ({{ getEasyFileSize(file.size) }}, {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}) 
       footer 

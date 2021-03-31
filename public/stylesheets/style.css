@@ -10,6 +10,18 @@ a {
   color: #00B7FF;
 }
 
+.font-color-gray {
+  color: #929292;
+}
+
+.no-drag {
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
 #app {
   height: 100%;
 }
@@ -58,6 +70,10 @@ article {
   margin-right: 16px;
 }
 
+#context-title-info {
+  margin-top: 4px;
+}
+
 #context-title-name {
   font-size: x-large;
 }
@@ -67,6 +83,7 @@ article {
 }
 
 #context-title-items {
+  margin-left: 4px;
   margin-right: 30px;
 }
 
@@ -85,6 +102,12 @@ article {
   font-size: small;
 }
 
+.file-table-th {
+  margin-top: 6px;
+  vertical-align: top;
+  display: inline-block;
+}
+
 th.file-name-header {
   min-width: 260px;
 }
@@ -92,6 +115,10 @@ th.file-name-header {
 th.file-chkbox-header, th.file-icon-header {
   width: 42px;
   min-width: 42px;
+}
+
+.file-table-sort {
+  cursor: pointer;
 }
 
 tr.file-tr {
@@ -112,7 +139,7 @@ td.file-chkbox {
 
 td.file-icon {
   text-align: center;
-  padding-top: 5px;
+  padding-top: 4px;
   padding-right: 6px;
 }
 

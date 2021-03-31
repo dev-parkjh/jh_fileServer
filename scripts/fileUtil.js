@@ -122,6 +122,7 @@ const getDirInfo = dirPath => {
 
             if (subFileStats.isDirectory()) {
                 subFileSize = getDirSize(subFilePath);
+                subFileExtCmt = '폴더';
             } else {
                 subFileSize = subFileStats.size;
                 subFileExt = getExt(subFile);
@@ -132,6 +133,7 @@ const getDirInfo = dirPath => {
                 isDirectory: subFileStats.isDirectory(),
                 name: subFile,
                 size: subFileSize,
+                mtime: subFileStats.mtime,
                 ext: subFileExt,
                 extCmt: subFileExtCmt
             }

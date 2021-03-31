@@ -2,20 +2,21 @@ const app = new Vue({
     el: '#app',
     data: () => {
         return {
-            fileInfo: {
-                type: '',
+            mainDirInfo: {
                 name: '-',
                 size: 0,
-                ext: '',
-                extType: '',
                 mtime: '',
                 child: []
+            },
+            sortInfo: {
+                target: 'name',
+                direction: 'asc'
             }
         }
     },
     methods: {
         getEasyFileSize: size => {
-            if(size == 0) return '-';
+            if (size == 0) return '-';
 
             size *= 1;
             let i = 0;
@@ -25,16 +26,49 @@ const app = new Vue({
             }
             return `${Math.round(size).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${name[i]}`;
         },
-        getFileList: () => {
-            axios.get('/file')
+        getDirInfo: () => {
+            axios.get('/dir')
                 .then(response => {
-                    app._data.fileInfo = response.data;
+                    app._data.mainDirInfo = response.data;
+                    app.sortFileList(app._data.mainDirInfo.child, app._data.sortInfo.target);
                 });
         },
-        getIconFromExtension: extension => {
+        sortFileList: (fileList, target, direction) => {
+            direction = direction || 'asc';
+
+            fileList.sort((a, b) => {
+                if (a[target] == b[target]) {
+                    return 0;
+                } else if (direction == 'desc') {
+                    return a[target] < b[target] ? 1 : -1;
+                } else {
+                    return a[target] > b[target] ? 1 : -1;
+                }
+            });
+
+            // 폴더가 최상위/최하위에 위치할 수 있도록 재정렬
+            fileList.sort((a, b) => {
+                if (a.isDirectory == b.isDirectory) {
+                    return 0;
+                } else if (direction == 'desc') {
+                    return a.isDirectory < b.isDirectory ? -1 : 1;
+                } else {
+                    return a.isDirectory > b.isDirectory ? -1 : 1;
+                }
+            });
+
+            app._data.sortInfo = {
+                target: target,
+                direction: direction
+            }
+        },
+        getIconFromExt: ext => {
             let icon = '';
 
-            switch (extension) {
+            switch (ext) {
+                case '':
+                    icon = 'folder';
+                    break;
                 case '.txt':
                     icon = 'edit_note';
                     break;
@@ -50,4 +84,4 @@ const app = new Vue({
     }
 });
 
-app.getFileList();
+app.getDirInfo();
