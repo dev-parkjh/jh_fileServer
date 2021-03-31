@@ -2,38 +2,51 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='/stylesheets/materialIcons.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="/javascripts/external/axios.min.js")
     script(src="/javascripts/external/vue.min.js")
   body
     #app 
       header 
-        nav 
-      aside
-        //- ul
-          li 공유폴더
-          li 내 폴더
-          li 휴지통
-      section
-        article
-          div {{ fileInfo }}
-          table
-            tr
-              th
-              th 
-              th 이름
-              th 날짜
-              th 타입
-              th 크기
-            //- tmplate(v-if="fileInfo.child.length != 0")
-              tr(v-for="file in fileInfo.child" :key="file.name")
-                td 
-                td 
-                td {{ file.name }}
-                td {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
-                td {{ file.extType }}
-                td {{ getEasyFileSize(file.size) }}
+        nav
+      div(class="context")
+        aside
+          ul
+            li 공유폴더
+            li 내 폴더
+            li 휴지통
+        section
+          article
+            div(id="context-title")
+              div(id="context-title-icon")
+                span(class="material-icons md-56") folder_open
+              div(id="context-title-info")
+                div(id="context-title-name") {{ fileInfo.name  }}
+                div(id="context-title-subinfo")
+                  span(id="context-title-items") {{ fileInfo.child.length }} items
+                  span Total space used on {{ getEasyFileSize(fileInfo.size) }}
+            table(id="file-table")
+              thead 
+                tr
+                  th(class="file-chkbox-header")
+                  th(class="file-icon-header") 
+                  th(class="file-name-header") Name
+                  th(class="file-mtime-header") Date
+                  th(class="file-ext-type-header") Type
+                  th(class="file-size-header") Size
+              tbody 
+                template(v-if="fileInfo.child.length != 0")
+                  tr(v-for="file in fileInfo.child" :key="file.name" class="file-tr")
+                    td(class="file-chkbox")
+                      input(type="checkbox" name="file-chkbox-list" :value="file.name")
+                    td(class="file-icon")
+                      span(class="material-icons") {{ getIconFromExtension(file.ext) }}
+                    td(class="file-name") {{ file.name }}
+                    td(class="file-mtime") {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
+                    td(class="file-ext-type") {{ file.extType }}
+                    td(class="file-size") {{ getEasyFileSize(file.size) }}
 
-          //- div(v-if="fileInfo.type == 'directory'" v-for="file in fileInfo.child" :key="file.name") {{ file.name }} ({{ getEasyFileSize(file.size) }}, {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}) 
+            //- div(v-if="fileInfo.type == 'directory'" v-for="file in fileInfo.child" :key="file.name") {{ file.name }} ({{ getEasyFileSize(file.size) }}, {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}) 
       footer 
     script(src="/javascripts/views/vIndex.js")

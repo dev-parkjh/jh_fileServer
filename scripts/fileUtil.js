@@ -177,7 +177,7 @@ const getFileSizeFromPath = path => {
  * @param {String} path 파일 경로
  * @return {String} 확장자
  */
-const getExtensionTypeFromPath = path => {
+const getExtensionFromPath = path => {
     const pathArray = path.split(pathUtil.sep);
     const fileName = pathArray[pathArray.length-1];
 
@@ -188,6 +188,29 @@ const getExtensionTypeFromPath = path => {
         extensionType = fileName.substring(dotPosition, path.length).toLowerCase();
     }
 
+    return extensionType;
+}
+
+/**
+ * 확장자를 받아 확장자 상세설명을 반환합니다.
+ * @param {String} extension 확장자
+ * @return {String} 확장자 설명
+ */
+ const getExtensionTypeFromExtension = extension => {
+    let extensionType = '';
+    if(extension != '') extensionType = extension.substring(1, extension.length);
+
+    switch(extension) {
+        case '.txt':
+            extensionType += ' 문서';
+            break;
+        case '.mp4':
+            extensionType += ' 동영상';
+            break;
+        default:
+            extensionType += ' 파일';
+    }
+    
     return extensionType;
 }
 
@@ -203,6 +226,7 @@ const getFileInfoFromPath = path => {
         name: '',
         size: '',
         mtime: '',
+        ext: '',
         extType: '',
         child: [] // 디렉터리일 경우 하위 파일 목록
     }
@@ -213,7 +237,8 @@ const getFileInfoFromPath = path => {
     fileInfo.name = getFileNameFromPath(path);
     fileInfo.size = getFileSizeFromPath(path);
     fileInfo.mtime = stats.mtime;
-    fileInfo.ext = stats.isDirectory() ? '' : getExtensionTypeFromPath(path);
+    fileInfo.ext = stats.isDirectory() ? '' : getExtensionFromPath(path);
+    fileInfo.extType = stats.isDirectory() ? '' : getExtensionTypeFromExtension(fileInfo.ext);
 
     if (fileInfo.type == 'directory') {
         const subFileList = fs.readdirSync(path); // 디렉터리 내부정보 로드
@@ -223,12 +248,14 @@ const getFileInfoFromPath = path => {
         for (let i = 0, il = subFileList.length; i < il; i++) {
             const subFilePath = getFixedPath(path) + subFileList[i];
             const subFileStats = fs.statSync(subFilePath);
+            const extension = getExtensionFromPath(subFilePath);
 
             child[i] = {
                 type: subFileStats.isDirectory() ? 'directory' : 'file',
                 name: subFileList[i],
                 size: getFileSizeFromPath(subFilePath),
-                extType: subFileStats.isDirectory() ? '' : getExtensionTypeFromPath(subFilePath),
+                ext: subFileStats.isDirectory() ? '' : extension,
+                extType: subFileStats.isDirectory() ? '' : getExtensionTypeFromExtension(extension),
                 mtime: subFileStats.mtime
             }
         }

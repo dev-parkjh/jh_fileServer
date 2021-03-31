@@ -21,6 +21,11 @@ header {
   border-bottom: #cccccc solid 1px;
 }
 
+.context {
+  min-width: 820px;
+  height: 100%;
+}
+
 aside {
   width: 256px;
   height: 100%;
@@ -30,4 +35,97 @@ aside {
 
 section {
   float: left;
+  width: calc(100% - 286px);
+  min-width: 560px;
+}
+
+article {
+  width: 100%;
+}
+
+#context-title {
+  height: 46px;
+  padding-top: 20px;
+  padding-bottom: 6px;
+  padding-left: 24px;
+}
+
+#context-title>div {
+  float: left;
+}
+
+#context-title-icon {
+  margin-right: 16px;
+}
+
+#context-title-name {
+  font-size: x-large;
+}
+
+#context-title-subinfo {
+  font-size: small;
+}
+
+#context-title-items {
+  margin-right: 30px;
+}
+
+#file-table {
+  margin: 15px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#file-table>thead>tr {
+  padding: 0px;
+  margin: 0px;
+  height: 40px;
+  border-bottom: #cccccc solid 1px;
+  text-align: left;
+  font-size: small;
+}
+
+th.file-name-header {
+  min-width: 260px;
+}
+
+th.file-chkbox-header, th.file-icon-header {
+  width: 42px;
+  min-width: 42px;
+}
+
+tr.file-tr {
+  height: 60px;
+  border-bottom: #cccccc solid 1px;
+  /* transition-property:background-color; */
+  transition-duration: 0.2s;
+}
+
+tr.file-tr:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+td.file-chkbox {
+  text-align: center;
+}
+
+td.file-icon {
+  text-align: center;
+  padding-top: 5px;
+  padding-right: 6px;
+}
+
+td.file-name {
+  width: auto;
+}
+
+td.file-mtime, td.file-ext-type {
+  width: 130px;
+  min-width: 130px;
+}
+
+td.file-size {
+  width: 90px;
+  min-width: 90px;
 }
