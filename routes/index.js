@@ -1,47 +1,23 @@
 const express = require('express');
 const fs = require('fs');
-const pathUtil = require("path");
+const path = require("path");
 const fileUtil = require('../scripts/fileUtil');
 const router = express.Router();
 
-const dataFolder = pathUtil.normalize(__dirname + '/../data');
+const dataFolder = path.normalize(__dirname + '/../data');
 
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: '' });
 });
 
-// 파일정보 불러오기
-router.get('/file', (req, res, next) => {
+// 디렉터리 정보 불러오기
+router.get('/dir', (req, res, next) => {
   const params = req.params;
+  const dirPath = dataFolder; //params.filePath
 
-  /**
-   * TODO
-   * 경로 지정(+세션.아이디 포함해서)
-   * 히든파일 표시여부
-   */
+  const dirInfo = fileUtil.getDirInfo(dirPath);
 
-  const filePath = dataFolder; //params.filePath
-  const fileInfo = fileUtil.getFileInfoFromPath(filePath);
-
-  res.json(fileInfo);
-});
-
-// 파일 업로드
-router.post('/file', (req, res, next) => {
-  console.log(req.body);
-  res.json(req.body);
-});
-
-// 파일 삭제
-router.delete('/file', (req, res, next) => {
-  console.log(req.body);
-  res.json(req.body);
-});
-
-// 파일 이동(이름변경)
-router.put('/file', (req, res, next) => {
-  console.log(req.body);
-  res.json(req.body);
+  res.json(dirInfo);
 });
 
 module.exports = router;
