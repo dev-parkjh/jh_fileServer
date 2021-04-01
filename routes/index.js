@@ -7,7 +7,14 @@ const router = express.Router();
 const dataFolder = path.normalize(__dirname + '/../data');
 
 router.get('/', function (req, res, next) {
-  res.render('index', { title: '' });
+  const ua = req.headers['user-agent'];
+  const isIE = (ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident.*rv\:11\./));
+
+  if (isIE) {
+    res.render('ieGuide', { title: 'webStorage' });
+  } else {
+    res.render('index', { title: 'webStorage' });
+  }
 });
 
 // 디렉터리 정보 불러오기
