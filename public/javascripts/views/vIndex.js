@@ -85,6 +85,24 @@ const app = new Vue({
             }
 
             return icon;
+        },
+        getCmtFromExt: ext => {
+            let extCmt = '';
+
+            if (ext != '') extCmt = ext.substring(1, ext.length);
+
+            switch (ext) {
+                case '.txt':
+                    extCmt = '텍스트 문서';
+                    break;
+                case '.mp4':
+                    extCmt += ' 동영상';
+                    break;
+                default:
+                    extCmt += ' 파일';
+            }
+
+            return extCmt;
         }
     }
 });

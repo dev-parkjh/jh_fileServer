@@ -3,15 +3,15 @@ html, body {
   padding: 0px;
   height: 100%;
   overflow: hidden;
-  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
+}
+
+div {
+  margin: 0px;
+  padding: 0px;
 }
 
 a {
   color: #00B7FF;
-}
-
-.font-color-gray {
-  color: #929292;
 }
 
 .no-drag {
@@ -33,7 +33,7 @@ header {
   border-bottom: #cccccc solid 1px;
 }
 
-.context {
+.main {
   min-width: 820px;
   height: 100%;
 }
@@ -46,113 +46,112 @@ aside {
 }
 
 section {
-  float: left;
-  width: calc(100% - 286px);
+  width: calc(100% - 257px);
+  /* aside width(+ border 1px) */
   min-width: 560px;
+  height: 100%;
+  float: left;
 }
 
-article {
-  width: 100%;
+.content {
+  height: 100%;
 }
 
-#context-title {
-  height: 46px;
+.content-header {
+  height: 60px;
   padding-top: 20px;
   padding-bottom: 6px;
   padding-left: 24px;
 }
 
-#context-title>div {
+.content-header>div {
   float: left;
 }
 
-#context-title-icon {
-  margin-right: 16px;
+.content-header-icon {
+  margin-top: 3px;
+  margin-left: 8px;
 }
 
-#context-title-info {
-  margin-top: 4px;
-}
-
-#context-title-name {
+.dir-name {
+  margin-left: 16px;
   font-size: x-large;
 }
 
-#context-title-subinfo {
+.dir-info>span {
+  margin-left: 22px;
   font-size: small;
 }
 
-#context-title-items {
-  margin-left: 4px;
-  margin-right: 30px;
+.content-body {
+  width: auto;
+  height: 100%;
+  padding-left: 15px;
+  padding-right: 20px;
 }
 
-#file-table {
-  margin: 15px;
+.content-body>table {
   width: 100%;
+  text-align: left;
   border-collapse: collapse;
 }
 
-#file-table>thead>tr {
-  padding: 0px;
-  margin: 0px;
+.content-body>table>thead>tr {
   height: 40px;
   border-bottom: #cccccc solid 1px;
-  text-align: left;
-  font-size: small;
 }
 
-.file-table-th {
-  margin-top: 6px;
+.th-text {
+  cursor: pointer;
+}
+
+.th-text>span {
+  margin-top: 3px;
   vertical-align: top;
   display: inline-block;
 }
 
-th.file-name-header {
-  min-width: 260px;
+.th-text>i {
+  margin-top: 5px;
+  margin-left: -2px;
+  color: #929292;
 }
 
-th.file-chkbox-header, th.file-icon-header {
+.th-chkbox, .th-icon {
   width: 42px;
   min-width: 42px;
 }
 
-.file-table-sort {
-  cursor: pointer;
+.th-name {
+  min-width: 260px;
 }
 
-tr.file-tr {
-  height: 60px;
-  border-bottom: #cccccc solid 1px;
-  /* transition-property:background-color; */
-  transition-duration: 0.2s;
-}
-
-tr.file-tr:hover {
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
-
-td.file-chkbox {
-  text-align: center;
-}
-
-td.file-icon {
-  text-align: center;
-  padding-top: 4px;
-  padding-right: 6px;
-}
-
-td.file-name {
-  width: auto;
-}
-
-td.file-mtime, td.file-ext-type {
+.th-mtime, .th-ext-type {
   width: 130px;
   min-width: 130px;
 }
 
-td.file-size {
+.th-size {
   width: 90px;
   min-width: 90px;
+}
+
+.content-body>table>tbody>tr {
+  height: 60px;
+  border-bottom: #cccccc solid 1px;
+  transition-duration: 0.2s;
+}
+
+.empty-file {
+  height: 70px;
+  text-align: center;
+}
+
+.td-chkbox, .td-icon {
+  text-align: center;
+}
+
+.td-icon>i {
+  padding-top: 4px;
+  padding-right: 6px;
 }

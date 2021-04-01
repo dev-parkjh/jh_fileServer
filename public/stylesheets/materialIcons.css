@@ -25,6 +25,10 @@
 
 /* Rules for sizing the icon. */
 
+.material-icons.md-14 {
+  font-size: 14px;
+}
+
 .material-icons.md-18 {
   font-size: 18px;
 }
