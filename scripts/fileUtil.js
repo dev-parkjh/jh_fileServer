@@ -78,30 +78,6 @@ const getExt = fileName => {
 }
 
 /**
-  * 확장자를 받아 확장자 상세설명을 반환합니다.
-  * @param {String} ext 확장자
-  * @return {String} 확장자 설명
-  */
-const getExtCmt = ext => {
-    let extCmt = '';
-
-    if (ext != '') extCmt = ext.substring(1, ext.length);
-
-    switch (ext) {
-        case '.txt':
-            extCmt = '텍스트 문서';
-            break;
-        case '.mp4':
-            extCmt += ' 동영상';
-            break;
-        default:
-            extCmt += ' 파일';
-    }
-
-    return extCmt;
-}
-
-/**
  * 디렉터리 경로를 받아 디렉터리 정보를 반환합니다.
  * @param {String} dirPath 파일 경로
  * @return {JSON} 디렉터리 정보
@@ -118,15 +94,12 @@ const getDirInfo = dirPath => {
             const subFileStats = fs.statSync(subFilePath);
             let subFileSize = 0;
             let subFileExt = '';
-            let subFileExtCmt = '';
 
             if (subFileStats.isDirectory()) {
                 subFileSize = getDirSize(subFilePath);
-                subFileExtCmt = '폴더';
             } else {
                 subFileSize = subFileStats.size;
                 subFileExt = getExt(subFile);
-                subFileExtCmt = getExtCmt(subFileExt);
             }
 
             child[index] = {
@@ -134,8 +107,7 @@ const getDirInfo = dirPath => {
                 name: subFile,
                 size: subFileSize,
                 mtime: subFileStats.mtime,
-                ext: subFileExt,
-                extCmt: subFileExtCmt
+                ext: subFileExt
             }
         });
 
