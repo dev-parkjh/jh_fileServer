@@ -1,8 +1,20 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/fonts/NotoSansKR-Light.woff2) format('woff2');
+}
+
 html, body {
   margin: 0px;
   padding: 0px;
   height: 100%;
   overflow: hidden;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 div {
