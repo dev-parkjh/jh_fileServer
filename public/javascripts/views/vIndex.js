@@ -62,6 +62,11 @@ const app = new Vue({
                 direction: direction
             }
         },
+        sortFileListByTarget: target => {
+            const direction = app._data.sortInfo.target == target && app._data.sortInfo.direction == 'asc' ? 'desc' : 'asc';
+            app.sortFileList(app._data.mainDirInfo.child, target, direction);
+            return true;
+        },
         getIconFromExt: ext => {
             let icon = '';
 

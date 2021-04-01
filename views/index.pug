@@ -32,19 +32,19 @@ html
                   th(class="file-chkbox-header")
                   th(class="file-icon-header") 
                   th(class="file-name-header")
-                    sapn(@click="sortFileList(mainDirInfo.child, 'name', sortInfo.target == 'name' && sortInfo.direction == 'asc' ? 'desc' : 'asc')" class="file-table-sort")
+                    sapn(@click="sortFileListByTarget('name');" class="file-table-sort")
                       span(class="file-table-th") Name
                       i(v-show="sortInfo.target == 'name'" class="material-icons md-18 font-color-gray") {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
                   th(class="file-mtime-header")
-                    sapn(@click="sortFileList(mainDirInfo.child, 'mtime', sortInfo.target == 'mtime' && sortInfo.direction == 'asc' ? 'desc' : 'asc')" class="file-table-sort")
+                    sapn(@click="sortFileListByTarget('mtime');" class="file-table-sort")
                       span(class="file-table-th") Date
                       i(v-show="sortInfo.target == 'mtime'" class="material-icons md-18 font-color-gray") {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
                   th(class="file-ext-type-header")
-                    sapn(@click="sortFileList(mainDirInfo.child, 'ext', sortInfo.target == 'ext' && sortInfo.direction == 'asc' ? 'desc' : 'asc')" class="file-table-sort")
+                    sapn(@click="sortFileListByTarget('ext');" class="file-table-sort")
                       span(class="file-table-th") Type
                       i(v-show="sortInfo.target == 'ext'" class="material-icons md-18 font-color-gray") {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
                   th(class="file-size-header")
-                    sapn(@click="sortFileList(mainDirInfo.child, 'size', sortInfo.target == 'size' && sortInfo.direction == 'asc' ? 'desc' : 'asc')" class="file-table-sort")
+                    sapn(@click="sortFileListByTarget('size');" class="file-table-sort")
                       span(class="file-table-th") Size
                       i(v-show="sortInfo.target == 'size'" class="material-icons md-18 font-color-gray") {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
               tbody 
