@@ -7,63 +7,63 @@ html
     script(src="/javascripts/external/axios.min.js")
     script(src="/javascripts/external/vue.min.js")
   body
-    #app 
+    #app.no-drag
       header 
         nav
-      div(class="main")
+      .main
         aside
           ul
             li 공유폴더
             li 내 폴더
             li 휴지통
         section
-          article(class="content")
-            div(class="content-header no-drag")
-              div(class="content-header-icon material-icons md-56") folder_open
-              div(class="content-header-info")
-                div(class="dir-name") {{ mainDirInfo.name }}
-                div(class="dir-info")
+          article.content
+            .content-header
+              .content-header-icon.material-icons.md-56 folder_open
+              .content-header-info
+                .dir-name {{ mainDirInfo.name }}
+                .dir-info
                   span {{ mainDirInfo.child.length }} items
                   span Total space used on {{ getEasyFileSize(mainDirInfo.size) }}
-            div(class="content-body")
+            .content-body
               table
                 thead 
-                  tr(class="no-drag")
-                    th(class="th-chkbox")
-                    th(class="th-icon") 
-                    th(class="th-name")
-                      span(@click="sortFileListByTarget('name');" class="th-text")
+                  tr
+                    th.th-chkbox
+                    th.th-icon
+                    th.th-name
+                      span.th-text(@click="sortFileListByTarget('name');")
                         span Name
-                        i(v-show="sortInfo.target == 'name'" class="material-icons md-14")
+                        i.material-icons.md-14(v-show="sortInfo.target == 'name'")
                           | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                    th(class="th-mtime")
-                      span(@click="sortFileListByTarget('mtime');" class="th-text")
+                    th.th-mtime
+                      span.th-text(@click="sortFileListByTarget('mtime');")
                         span Date
-                        i(v-show="sortInfo.target == 'mtime'" class="material-icons md-14")
+                        i.material-icons.md-14(v-show="sortInfo.target == 'mtime'")
                           | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                    th(class="th-ext-type")
-                      span(@click="sortFileListByTarget('ext');" class="th-text")
+                    th.th-ext-type
+                      span.th-text(@click="sortFileListByTarget('ext');")
                         span Type
-                        i(v-show="sortInfo.target == 'ext'" class="material-icons md-14")
+                        i.material-icons.md-14(v-show="sortInfo.target == 'ext'")
                           | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                    th(class="th-size")
-                      span(@click="sortFileListByTarget('size');" class="th-text")
+                    th.th-size
+                      span.th-text(@click="sortFileListByTarget('size');")
                         span Size
-                        i(v-show="sortInfo.target == 'size'" class="material-icons md-14")
+                        i.material-icons.md-14(v-show="sortInfo.target == 'size'")
                           | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
                 tbody 
                   template(v-if="mainDirInfo.child.length != 0")
                     tr(v-for="file in mainDirInfo.child" :key="file.name")
-                      td(class="td-chkbox")
+                      td.td-chkbox
                         input(type="checkbox" name="file-chkbox" :value="file.name")
-                      td(class="td-icon")
-                        i(class="material-icons") {{ getIconFromExt(file.ext) }}
-                      td(class="td-name") {{ file.name }}
-                      td(class="td-mtime") {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
-                      td(class="td-ext-type") {{ getCmtFromExt(file.ext) }}
-                      td(class="td-size") {{ getEasyFileSize(file.size) }}
+                      td.td-icon
+                        i.material-icons {{ getIconFromExt(file.ext) }}
+                      td.td-name {{ file.name }}
+                      td.td-mtime {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
+                      td.td-ext-type {{ getCmtFromExt(file.ext) }}
+                      td.td-size {{ getEasyFileSize(file.size) }}
                   template(v-if="mainDirInfo.child.length == 0")
                     tr
-                      td(colspan="6" class="empty-file") 파일이 없습니다
+                      td.empty-file(colspan="6") 파일이 없습니다
       footer 
     script(src="/javascripts/views/vIndex.js")
