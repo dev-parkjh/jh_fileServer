@@ -26,45 +26,49 @@ html
                 .dir-info
                   span {{ mainDirInfo.child.length }} items
                   span Total space used on {{ getEasyFileSize(mainDirInfo.size) }}
-            .content-body.scrollbar
-              table
-                thead 
-                  tr
-                    th.th-chkbox
-                    th.th-icon
-                    th.th-name
-                      span.th-text(@click="sortFileListByTarget('name');")
-                        span Name
-                        i.material-icons.md-14(v-show="sortInfo.target == 'name'")
-                          | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                    th.th-mtime
-                      span.th-text(@click="sortFileListByTarget('mtime');")
-                        span Date
-                        i.material-icons.md-14(v-show="sortInfo.target == 'mtime'")
-                          | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                    th.th-ext-type
-                      span.th-text(@click="sortFileListByTarget('ext');")
-                        span Type
-                        i.material-icons.md-14(v-show="sortInfo.target == 'ext'")
-                          | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                    th.th-size
-                      span.th-text(@click="sortFileListByTarget('size');")
-                        span Size
-                        i.material-icons.md-14(v-show="sortInfo.target == 'size'")
-                          | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                tbody 
-                  template(v-if="mainDirInfo.child.length != 0")
-                    tr(v-for="file in mainDirInfo.child" :key="file.name")
-                      td.td-chkbox
-                        input(type="checkbox" name="file-chkbox" :value="file.name")
-                      td.td-icon
-                        i.material-icons {{ getIconFromExt(file.ext) }}
-                      td.td-name {{ file.name }}
-                      td.td-mtime {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
-                      td.td-ext-type {{ getCmtFromExt(file.ext) }}
-                      td.td-size {{ getEasyFileSize(file.size) }}
-                  template(v-if="mainDirInfo.child.length == 0")
+            .content-body
+              .file-header
+                table
+                  thead 
                     tr
-                      td.empty-file(colspan="6") 파일이 없습니다
+                      th.chkbox
+                        input(type="checkbox" name="all-file-chk")
+                      th.icon
+                      th.name
+                        span.text(@click="sortFileListByTarget('name');")
+                          span Name
+                          i.material-icons.md-14(v-show="sortInfo.target == 'name'")
+                            | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
+                      th.mtime
+                        span.text(@click="sortFileListByTarget('mtime');")
+                          span Date
+                          i.material-icons.md-14(v-show="sortInfo.target == 'mtime'")
+                            | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
+                      th.ext-type
+                        span.text(@click="sortFileListByTarget('ext');")
+                          span Type
+                          i.material-icons.md-14(v-show="sortInfo.target == 'ext'")
+                            | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
+                      th.size
+                        span.text(@click="sortFileListByTarget('size');")
+                          span Size
+                          i.material-icons.md-14(v-show="sortInfo.target == 'size'")
+                            | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
+              .file-list.scrollbar
+                table
+                  tbody 
+                    template(v-if="mainDirInfo.child.length != 0")
+                      tr.rounded(v-for="file in mainDirInfo.child" :key="file.name" :class="{'is-directory' : file.isDirectory}")
+                        td.chkbox
+                          input(type="checkbox" name="file-chk" :value="file.name")
+                        td.icon
+                          i.material-icons {{ getIconFromExt(file.ext) }}
+                        td.name {{ file.name }}
+                        td.mtime {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
+                        td.ext-type {{ getCmtFromExt(file.ext) }}
+                        td.size {{ getEasyFileSize(file.size) }}
+                    template(v-if="mainDirInfo.child.length == 0")
+                      tr
+                        td.empty-file(colspan="6") 파일이 없습니다
       footer 
     script(src="/javascripts/views/vIndex.js")

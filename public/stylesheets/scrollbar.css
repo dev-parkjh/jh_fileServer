@@ -7,7 +7,7 @@ body[theme="dark"] {
 }
 
 .scrollbar {
-    overflow-y: overlay;
+    overflow-y: scroll;
 }
 
 .scrollbar::-webkit-scrollbar {
