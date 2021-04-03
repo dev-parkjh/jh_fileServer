@@ -6,6 +6,32 @@
   src: url(/fonts/NotoSansKR-Light.woff2) format('woff2');
 }
 
+/* body[theme="light"] {
+  --main-color: #000;
+  --sidebar-color: #323232;
+  --sidebar-background-color: #f5f5f5;
+  --sidebar-li-color: #fff;
+  --sidebar-li-hover-color: #eaeaea;
+  --sidebar-li-active-color: #e0e0e0;
+  --background-color: #fcfcfc;
+  --box-color: lightgrey;
+  --title-bar-background-color: white;
+  --title-border-color: rgba(0, 0, 0, 0.3);
+}
+
+body[theme="dark"] {
+  --main-color: #cccccc;
+  --sidebar-color: #cccccc;
+  --sidebar-background-color: #252525dc;
+  --sidebar-li-color: #fff;
+  --sidebar-li-hover-color: #2d2d2d;
+  --sidebar-li-active-color: #373737;
+  --background-color: #1e1e1e;
+  --box-color: grey;
+  --title-bar-background-color: #323232;
+  --title-border-color: rgba(0, 0, 0, 0.6);
+} */
+
 html, body {
   margin: 0px;
   padding: 0px;
