@@ -12,6 +12,8 @@
   --content-header-height: 86px;
   --file-header-height: 36px;
   --file-list-height: 52px;
+  --menu-width: 356px;
+  --section-min-width: 740px;
   --main-color: #323232;
   --main-background-color: #fcfcfc;
   --border-color: #cccccc;
@@ -41,6 +43,7 @@ html, body {
 }
 
 body {
+  position: relative;
   background-color: var(--main-background-color);
   color: var(--main-color);
   font-family: 'Noto Sans KR', sans-serif;
@@ -64,6 +67,7 @@ a {
 }
 
 #app {
+  min-width: calc(var(--aside-width) + var(--section-min-width) + 1px);
   height: 100%;
 }
 
@@ -77,8 +81,12 @@ header>div {
   display: inline-block;
 }
 
-header>div.logo {
+.logo {
   width: var(--aside-width);
+}
+
+.search {
+  width: calc(100% - (var(--aside-width) + 1px + var(--menu-width)));
 }
 
 .search-bar {
@@ -87,24 +95,30 @@ header>div.logo {
   height: 50px;
 }
 
-.search-bar>div {
+.icon-box32 {
   display: inline-block;
-}
-
-.search-bar>.search-icon {
+  transition-duration: 0.3s;
   margin-left: 14px;
   border-radius: 26px;
   width: 50px;
   height: 50px;
 }
 
-.search-bar>.search-icon:hover {
+.icon-box32:hover {
   background-color: var(--main-hover-color);
   cursor: pointer;
 }
 
-.search-bar>.search-icon>i {
+.icon-box32>i {
   margin: 9px;
+}
+
+.icon-box32.rotate120 {
+  transition: all ease 0.6s;
+}
+
+.icon-box32.rotate120:hover {
+  transform: rotate(120deg);
 }
 
 .search-bar>input {
@@ -116,7 +130,8 @@ header>div.logo {
   padding-right: 10px;
   padding-bottom: 2px;
   padding-left: 10px;
-  width: 500px;
+  width: calc(100% - 120px);
+  max-width: 380px;
   height: 32px;
   vertical-align: top;
   color: var(--main-color);
@@ -132,6 +147,62 @@ header>div.logo {
   position: relative;
   top: 1px;
   color: var(--search-placeholder-color);
+}
+
+.menu {
+  float: right;
+  margin-top: 7px;
+  width: var(--menu-width);
+}
+
+.menu>div {
+  float: right;
+}
+
+.menu>.user>button {
+  margin-top: 5px;
+  margin-right: 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--main-hover-color);
+  cursor: pointer;
+  width: 90px;
+  height: 40px;
+  color: var(--main-color);
+  font-size: 16px;
+}
+
+.menu>.user>button:focus {
+  outline: none;
+}
+
+.menu>.user>button:hover {
+  background-color: var(--main-active-color);
+}
+
+.menu>.user>button>span {
+  position: relative;
+  transition: 0.4s;
+}
+
+.menu>.user>button>span:after {
+  position: absolute;
+  right: -10px;
+  transition: 0.4s;
+  opacity: 0;
+  margin-top: -3px;
+  font-size: large;
+  content: '\00bb';
+}
+
+.menu>.user>button:hover>span {
+  padding-right: 16px;
+}
+
+.menu>.user>button:hover>span:after {
+  right: 0;
+  opacity: 1;
 }
 
 .main {
@@ -153,6 +224,7 @@ aside>ul {
 
 aside>ul>li {
   display: block;
+  transition-duration: 0.1s;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   padding-top: 10px;
@@ -171,7 +243,7 @@ aside>ul>li.active {
 
 aside>ul>li>i {
   margin-top: 2px;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 aside>ul>li>span {
@@ -183,7 +255,7 @@ aside>ul>li>span {
 
 section {
   float: left;
-  min-width: 560px;
+  min-width: var(--section-min-width);
   height: 100%;
   /* aside width(+ border 1px) */
   width: calc(100% - (var(--aside-width) + 1px));
