@@ -6,6 +6,13 @@
   src: url(/fonts/NotoSansKR-Light.woff2) format('woff2');
 }
 
+@font-face {
+  font-family: 'BMJUA';
+  src: url(/fonts/BMJUA.woff) format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --header-height: 65px;
   --aside-width: 256px;
@@ -83,6 +90,18 @@ header>div {
 
 .logo {
   width: var(--aside-width);
+  vertical-align: top;
+}
+
+.logo>.site-name {
+  margin-top: 15px;
+  margin-left: 12px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: url(/image/svg/logo.svg);
+  width: var(--aside-width);
+  font-size: 30px;
+  font-family: 'BMJUA', sans-serif;
 }
 
 .search {
@@ -243,7 +262,7 @@ aside>ul>li.active {
 
 aside>ul>li>i {
   margin-top: 2px;
-  margin-left: 12px;
+  margin-left: 18px;
 }
 
 aside>ul>li>span {
