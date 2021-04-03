@@ -108,3 +108,18 @@ const app = new Vue({
 });
 
 app.getDirInfo();
+
+
+
+// let OSTheme = localStorage.os_theme;
+// let defaultTheme = 'light';
+
+// document.documentElement.setAttribute(
+//     'data-theme',
+//     OSTheme || defaultTheme,
+// );
+
+// document.addEventListener('scroll', function() {
+//     var currentScrollValue = document.documentElement.scrollTop;
+//     console.log('currentScrollValue is ' + currentScrollValue);
+// });
