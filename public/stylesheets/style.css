@@ -74,8 +74,12 @@ a {
 }
 
 #app {
-  min-width: calc(var(--aside-width) + var(--section-min-width) + 1px);
+  min-width: calc(var(--aside-width) + var(--section-min-width));
   height: 100%;
+}
+
+header, aside {
+  box-sizing: border-box;
 }
 
 header {
@@ -94,18 +98,18 @@ header>div {
 }
 
 .logo>.site-name {
-  margin-top: 15px;
+  margin-top: 16px;
   margin-left: 12px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-image: url(/image/svg/logo.svg);
   width: var(--aside-width);
-  font-size: 30px;
+  font-size: 28px;
   font-family: 'BMJUA', sans-serif;
 }
 
 .search {
-  width: calc(100% - (var(--aside-width) + 1px + var(--menu-width)));
+  width: calc(100% - (var(--aside-width) + var(--menu-width)));
 }
 
 .search-bar {
@@ -270,14 +274,14 @@ aside>ul>li>span {
   margin-left: 10px;
   vertical-align: top;
   font-size: large;
+  margin-top: 3px;
 }
 
 section {
   float: left;
   min-width: var(--section-min-width);
   height: 100%;
-  /* aside width(+ border 1px) */
-  width: calc(100% - (var(--aside-width) + 1px));
+  width: calc(100% - var(--aside-width));
 }
 
 .content {
@@ -316,8 +320,7 @@ section {
 }
 
 .content-body {
-  /* header height(+ border 1px) */
-  height: calc(100% - (var(--header-height) + 1px + var(--content-header-height)));
+  height: calc(100% - (var(--header-height) + var(--content-header-height)));
 }
 
 .file-header {
@@ -385,8 +388,8 @@ td.size {
 .file-list {
   padding-right: 2px;
   padding-left: 16px;
-  /* file-header height(+ border 1px) */
-  height: calc(100% - (var(--file-header-height) + 1px));
+  margin-top: 1px;
+  height: calc(100% - var(--file-header-height));
 }
 
 .file-list>table>tbody>tr {
