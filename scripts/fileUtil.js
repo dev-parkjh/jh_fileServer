@@ -97,6 +97,7 @@ const getDirInfo = dirPath => {
 
             if (subFileStats.isDirectory()) {
                 subFileSize = getDirSize(subFilePath);
+                subFileExt = 'directory';
             } else {
                 subFileSize = subFileStats.size;
                 subFileExt = getExt(subFile);

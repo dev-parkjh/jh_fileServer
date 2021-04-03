@@ -36,26 +36,20 @@ const app = new Vue({
         sortFileList: (fileList, target, direction) => {
             direction = direction || 'asc';
 
-            fileList.sort((a, b) => {
-                if (a[target] == b[target]) {
-                    return 0;
-                } else if (direction == 'desc') {
-                    return a[target] < b[target] ? 1 : -1;
-                } else {
-                    return a[target] > b[target] ? 1 : -1;
+            fileList.sort(
+                (a, b) => {
+                    // 디렉터리 상위 정렬후 파일 정렬
+                    if (a.isDirectory == b.isDirectory) {
+                        if (direction == 'asc') {
+                            return (a[target] > b[target]) - (a[target] < b[target]);
+                        } else {
+                            return (a[target] < b[target]) - (a[target] > b[target]);
+                        }
+                    } else {
+                        return b.isDirectory - a.isDirectory;
+                    }
                 }
-            });
-
-            // 폴더가 최상위/최하위에 위치할 수 있도록 재정렬
-            fileList.sort((a, b) => {
-                if (a.isDirectory == b.isDirectory) {
-                    return 0;
-                } else if (direction == 'desc') {
-                    return a.isDirectory < b.isDirectory ? -1 : 1;
-                } else {
-                    return a.isDirectory > b.isDirectory ? -1 : 1;
-                }
-            });
+            );
 
             app._data.sortInfo = {
                 target: target,
@@ -71,7 +65,7 @@ const app = new Vue({
             let icon = '';
 
             switch (ext) {
-                case '':
+                case 'directory':
                     icon = 'folder';
                     break;
                 case '.txt':
@@ -88,6 +82,8 @@ const app = new Vue({
         },
         getCmtFromExt: ext => {
             let extCmt = '';
+
+            if (ext == 'directory') return '폴더';
 
             if (ext != '') extCmt = ext.substring(1, ext.length);
 

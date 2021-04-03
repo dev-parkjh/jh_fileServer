@@ -10,10 +10,10 @@ router.get('/', function (req, res, next) {
   const ua = req.headers['user-agent'];
   const isIE = (ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident.*rv\:11\./));
 
-  if (isIE) {
-    res.render('ieGuide', { title: 'webStorage' });
-  } else {
+  if (!isIE) {
     res.render('index', { title: 'webStorage' });
+  } else {
+    res.render('ieGuide', { title: 'webStorage' });
   }
 });
 

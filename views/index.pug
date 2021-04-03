@@ -7,25 +7,37 @@ html
     link(rel='stylesheet', href='/stylesheets/scrollbar.css')
     script(src="/javascripts/external/axios.min.js")
     script(src="/javascripts/external/vue.min.js")
-  body(theme="light")
+  body(theme="dark")
     #app.no-drag
-      header 
-        nav
+      header
+        .logo 
+        .search 
+          .search-bar
+            .search-icon
+              i.material-icons.md-32 search 
+            input(type="text" placeholder="Search...")
+        .menu
       .main
         aside
           ul
-            li 공유폴더
-            li 내 폴더
-            li 휴지통
+            li.active
+              i.material-icons folder 
+              span My Storage
+            li
+              i.material-icons share 
+              span Public
+            li
+              i.material-icons delete  
+              span Trash 
         section
           article.content
             .content-header
+              nav
               .content-header-icon.material-icons.md-56 folder_open
               .content-header-info
                 .dir-name {{ mainDirInfo.name }}
                 .dir-info
-                  span {{ mainDirInfo.child.length }} items
-                  span Total space used on {{ getEasyFileSize(mainDirInfo.size) }}
+                  span {{ mainDirInfo.child.length }} items · {{ getEasyFileSize(mainDirInfo.size) }}
             .content-body
               .file-header
                 table
@@ -58,7 +70,7 @@ html
                 table
                   tbody 
                     template(v-if="mainDirInfo.child.length != 0")
-                      tr.rounded(v-for="file in mainDirInfo.child" :key="file.name" :class="{'is-directory' : file.isDirectory}")
+                      tr(v-for="file in mainDirInfo.child" :key="file.name" :class="{'is-directory' : file.isDirectory}")
                         td.chkbox
                           input(type="checkbox" name="file-chk" :value="file.name")
                         td.icon

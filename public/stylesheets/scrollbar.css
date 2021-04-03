@@ -3,7 +3,7 @@ body[theme="light"] {
 }
 
 body[theme="dark"] {
-    --scrollber-background-color: #323232;
+    --scrollber-background-color: #1e1e1e;
 }
 
 .scrollbar {
