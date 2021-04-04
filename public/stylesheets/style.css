@@ -8,9 +8,9 @@
 
 @font-face {
   font-family: 'BMJUA';
-  src: url(/fonts/BMJUA.woff) format('woff');
   font-weight: normal;
   font-style: normal;
+  src: url(/fonts/BMJUA.woff) format('woff');
 }
 
 :root {
@@ -78,6 +78,43 @@ a {
   height: 100%;
 }
 
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+
+.background.snow {
+  background-image: url(/image/svg/snow.svg);
+  background-size: 800px 1200px;
+  animation: fade-in 1.5s linear;
+}
+
+.background.snow.fade-out {
+  animation: fade-out 1.5s linear;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 header, aside {
   box-sizing: border-box;
 }
@@ -100,12 +137,13 @@ header>div {
 .logo>.site-name {
   margin-top: 16px;
   margin-left: 12px;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background-clip: text;
   background-image: url(/image/svg/logo.svg);
   width: var(--aside-width);
-  font-size: 28px;
   font-family: 'BMJUA', sans-serif;
+  font-size: 28px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .search {
@@ -273,15 +311,15 @@ aside>ul>li>span {
   display: inline-block;
   margin-left: 10px;
   vertical-align: top;
-  font-size: large;
   line-height: 27px;
+  font-size: large;
 }
 
 section {
   float: left;
+  width: calc(100% - var(--aside-width));
   min-width: var(--section-min-width);
   height: 100%;
-  width: calc(100% - var(--aside-width));
 }
 
 .content {
@@ -386,9 +424,9 @@ td.size {
 }
 
 .file-list {
+  margin-top: 1px;
   padding-right: 2px;
   padding-left: 16px;
-  margin-top: 1px;
   height: calc(100% - var(--file-header-height));
 }
 

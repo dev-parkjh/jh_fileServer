@@ -7,10 +7,11 @@ html
     link(rel='stylesheet', href='/stylesheets/scrollbar.css')
     script(src="/javascripts/external/axios.min.js")
     script(src="/javascripts/external/vue.min.js")
-  body(theme="dark")
+  body(theme="light")
     #app.no-drag
+      .background(:class="{snow:snow.isSnow, 'fade-out':snow.isFadeOut}")
       header
-        .logo
+        .logo(@dblclick="setEasterEgg();")
           .site-name jh_fileServer
         .search 
           .search-bar

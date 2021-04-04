@@ -8,7 +8,8 @@ class TextScramble {
         this.chars = '!<>-_\\/[]{}—=+*^?#________';
         this.update = this.update.bind(this);
     }
-    setText(newText) {
+    setText(newText, delay) {
+        delay = delay || 0;
         const oldText = this.el.innerText;
         const length = Math.max(oldText.length, newText.length);
         const promise = new Promise((resolve) => this.resolve = resolve);
@@ -17,7 +18,7 @@ class TextScramble {
             const from = oldText[i] || '';
             const to = newText[i] || '';
             const start = Math.floor(Math.random() * 40);
-            const end = start + Math.floor(Math.random() * 40 + 50);
+            const end = start + Math.floor(Math.random() * 40 + delay);
             this.queue.push({ from, to, start, end });
         }
         cancelAnimationFrame(this.frameRequest);

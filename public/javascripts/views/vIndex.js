@@ -11,6 +11,10 @@ const app = new Vue({
             sortInfo: {
                 target: 'name',
                 direction: 'asc'
+            },
+            snow: {
+                isSnow: false,
+                isFadeOut: false
             }
         }
     },
@@ -99,12 +103,23 @@ const app = new Vue({
             }
 
             return extCmt;
+        },
+        setEasterEgg: () => {
+            if (app._data.snow.isSnow) {
+                app._data.snow.isFadeOut = true;
+                setTimeout(() => {
+                    app._data.snow.isSnow = false;
+                    app._data.snow.isFadeOut = false;
+                }, 1400);
+            } else {
+                app._data.snow.isSnow = true;
+            }
         }
     },
     mounted: () => {
         const el = document.querySelector('.site-name')
         const fx = new TextScramble(el)
-        fx.setText(el.innerText);
+        fx.setText(el.innerText, 80);
     }
 });
 
