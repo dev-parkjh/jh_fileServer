@@ -41,10 +41,43 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
 }
 
+.no-drag {
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
 .error-code404 {
   font-family: 'BMJUA', sans-serif;
-  /* align-items: center;
-  text-align: center; */
+  height: 100%;
+  min-width: 500px;
+}
+
+.error-code404>div {
+  display: inline-block;
+}
+
+.left {
+  width: 25%;
+  height: 100%;
+}
+
+.main {
+  width: 40%;
+  height: 100%;
+  vertical-align: top;
+  min-width: 360px;
+}
+
+.right {
+  width: 35%;
+  height: 100%;
+}
+
+.info {
+  margin-top: 200px;
 }
 
 .text-art {
@@ -72,52 +105,79 @@ h3 {
 }
 
 .message2 {
-  margin-top: 40px;
+  margin-top: 50px;
+  margin-left: 6px;
 }
 
+.back, .home {
+  display: inline-block;
+}
 
-.menu>.user>button {
-  margin-top: 5px;
-  margin-right: 20px;
-  margin-left: 10px;
+button {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 6px;
   border: none;
   border-radius: 12px;
   background-color: var(--main-hover-color);
   cursor: pointer;
-  width: 90px;
+  width: 210px;
   height: 40px;
   color: var(--main-color);
   font-size: 16px;
 }
 
-/* .menu>.user>button:focus {
+button:focus {
   outline: none;
 }
 
-.menu>.user>button:hover {
+button:hover {
   background-color: var(--main-active-color);
 }
 
-.menu>.user>button>span {
+button>span {
   position: relative;
-  transition: 0.4s;
+  transition: 0.6s;
 }
 
-.menu>.user>button>span:after {
+button>span::before {
   position: absolute;
-  right: -10px;
-  transition: 0.4s;
+  left: -40px;
+  transition: 0.6s;
   opacity: 0;
-  margin-top: -3px;
   font-size: large;
-  content: '\00bb';
+  margin-top: -6px;
 }
 
-.menu>.user>button:hover>span {
-  padding-right: 16px;
+.back>button>span::before {
+  content: 'ꉂꉂ(ᵔᗜᵔ*)';
 }
 
-.menu>.user>button:hover>span:after {
-  right: 0;
+.home>button>span::before {
+  content: '｡^‿^｡';
+}
+
+.back>button:hover>span {
+  padding-left: 70px;
+}
+
+.home>button:hover>span {
+  padding-left: 50px;
+}
+
+.back>button:hover>span::before {
+  left: 0px;
   opacity: 1;
-} */
+}
+
+.home>button:hover>span::before {
+  left: -8px;
+  opacity: 1;
+}
+
+.right>p {
+  bottom: 0px;
+  right: 16px;
+  position: absolute;
+  color: #888888;
+}
