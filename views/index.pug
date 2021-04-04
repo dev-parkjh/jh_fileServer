@@ -9,9 +9,8 @@ html
     script(src="/javascripts/external/vue.min.js")
   body(theme="light")
     #app.no-drag
-      .background(:class="{snow:snow.isSnow, 'fade-out':snow.isFadeOut}")
       header
-        .logo(@dblclick="setEasterEgg();")
+        .logo(@dblclick="easterEgg();")
           .site-name jh_fileServer
         .search 
           .search-bar

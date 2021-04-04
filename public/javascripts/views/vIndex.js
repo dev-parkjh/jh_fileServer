@@ -11,10 +11,6 @@ const app = new Vue({
             sortInfo: {
                 target: 'name',
                 direction: 'asc'
-            },
-            snow: {
-                isSnow: false,
-                isFadeOut: false
             }
         }
     },
@@ -104,22 +100,14 @@ const app = new Vue({
 
             return extCmt;
         },
-        setEasterEgg: () => {
-            if (app._data.snow.isSnow) {
-                app._data.snow.isFadeOut = true;
-                setTimeout(() => {
-                    app._data.snow.isSnow = false;
-                    app._data.snow.isFadeOut = false;
-                }, 1400);
-            } else {
-                app._data.snow.isSnow = true;
-            }
+        easterEgg: () => {
+            // svg 배경은 저사양 컴퓨터에서 렉이 너무 심해서 기능 제거함
         }
     },
     mounted: () => {
         const el = document.querySelector('.site-name')
         const fx = new TextScramble(el)
-        fx.setText(el.innerText, 80);
+        fx.setText(el.innerText, 40);
     }
 });
 
