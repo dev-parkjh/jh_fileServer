@@ -100,6 +100,11 @@ const app = new Vue({
 
             return extCmt;
         }
+    },
+    mounted: () => {
+        const el = document.querySelector('.site-name')
+        const fx = new TextScramble(el)
+        fx.setText(el.innerText);
     }
 });
 
