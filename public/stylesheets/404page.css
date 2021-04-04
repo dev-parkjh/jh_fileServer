@@ -1,0 +1,123 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url(/fonts/NotoSansKR-Light.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'BMJUA';
+  font-weight: normal;
+  font-style: normal;
+  src: url(/fonts/BMJUA.woff) format('woff');
+}
+
+:root {
+  --main-color: #323232;
+  --main-background-color: #fcfcfc;
+  --main-hover-color: #eeeeee;
+  --main-active-color: #e0e0e0;
+}
+
+body[theme="dark"] {
+  --main-color: #cccccc;
+  --main-background-color: #1e1e1e;
+  --main-hover-color: #2d2d2d;
+  --main-active-color: #373737;
+}
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  position: relative;
+  background-color: var(--main-background-color);
+  color: var(--main-color);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.error-code404 {
+  font-family: 'BMJUA', sans-serif;
+  /* align-items: center;
+  text-align: center; */
+}
+
+.text-art {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+h1 {
+  font-size: 60px;
+  font-weight: normal;
+  display: inline-block;
+  margin: 0px;
+}
+
+h2 {
+  font-weight: normal;
+  margin: 3px;
+}
+
+h3 {
+  font-weight: normal;
+  margin: 0px;
+}
+
+.message2 {
+  margin-top: 40px;
+}
+
+
+.menu>.user>button {
+  margin-top: 5px;
+  margin-right: 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--main-hover-color);
+  cursor: pointer;
+  width: 90px;
+  height: 40px;
+  color: var(--main-color);
+  font-size: 16px;
+}
+
+/* .menu>.user>button:focus {
+  outline: none;
+}
+
+.menu>.user>button:hover {
+  background-color: var(--main-active-color);
+}
+
+.menu>.user>button>span {
+  position: relative;
+  transition: 0.4s;
+}
+
+.menu>.user>button>span:after {
+  position: absolute;
+  right: -10px;
+  transition: 0.4s;
+  opacity: 0;
+  margin-top: -3px;
+  font-size: large;
+  content: '\00bb';
+}
+
+.menu>.user>button:hover>span {
+  padding-right: 16px;
+}
+
+.menu>.user>button:hover>span:after {
+  right: 0;
+  opacity: 1;
+} */
