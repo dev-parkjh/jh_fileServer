@@ -69,15 +69,13 @@ body {
   height: 100%;
   vertical-align: top;
   min-width: 360px;
+  position: relative;
+  top: 24%;
 }
 
 .right {
   width: 35%;
   height: 100%;
-}
-
-.info {
-  margin-top: 200px;
 }
 
 .text-art {
@@ -121,7 +119,7 @@ button {
   border-radius: 12px;
   background-color: var(--main-hover-color);
   cursor: pointer;
-  width: 210px;
+  width: 220px;
   height: 40px;
   color: var(--main-color);
   font-size: 16px;
@@ -138,6 +136,8 @@ button:hover {
 button>span {
   position: relative;
   transition: 0.6s;
+  vertical-align: top;
+  line-height: 26px;
 }
 
 button>span::before {
@@ -146,7 +146,7 @@ button>span::before {
   transition: 0.6s;
   opacity: 0;
   font-size: large;
-  margin-top: -6px;
+  line-height: 24px;
 }
 
 .back>button>span::before {
@@ -158,20 +158,20 @@ button>span::before {
 }
 
 .back>button:hover>span {
-  padding-left: 70px;
+  padding-left: 72px;
 }
 
 .home>button:hover>span {
-  padding-left: 50px;
+  padding-left: 52px;
 }
 
 .back>button:hover>span::before {
-  left: 0px;
+  left: -3px;
   opacity: 1;
 }
 
 .home>button:hover>span::before {
-  left: -8px;
+  left: -4px;
   opacity: 1;
 }
 

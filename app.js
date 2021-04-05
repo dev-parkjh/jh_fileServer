@@ -22,8 +22,14 @@ app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  // next(createError(404));
-  res.render('404page', { title: '404 Error' });
+  const ua = req.headers['user-agent'];
+  const isIE = (ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident.*rv\:11\./));
+
+  if (!isIE) {
+    res.render('404page', { title: '404 Error' });
+  } else {
+    res.render('ieGuide', { title: 'webStorage' });
+  }
 });
 
 // error handler
