@@ -70,30 +70,30 @@ const app = new Vue({
         getExtDetail: ext => {
             let icon = '';
             let iconColor = '';
-            let extCmt = '';
+            let cmt = '';
 
-            if (ext != '') extCmt = ext.substring(1, ext.length);
+            if (ext != '') cmt = ext.substring(1, ext.length);
 
             switch (ext) {
                 case 'directory':
                     icon = 'folder';
                     iconColor = '';
-                    extCmt = '폴더';
+                    cmt = '폴더';
                     break;
                 case '.txt':
                     icon = 'edit_note';
                     iconColor = '';
-                    extCmt = '텍스트 문서';
+                    cmt = '텍스트 문서';
                     break;
                 case '.mp4':
                     icon = 'movie';
                     iconColor = '';
-                    extCmt += ' 동영상';
+                    cmt += ' 동영상';
                     break;
                 default:
                     icon = 'file_present';
                     iconColor = '';
-                    extCmt += ' 파일';
+                    cmt += ' 파일';
             }
 
             return {
