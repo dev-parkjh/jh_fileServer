@@ -29,7 +29,13 @@ const app = new Vue({
         getDirInfo: () => {
             axios.get('/dir')
                 .then(response => {
-                    app._data.mainDirInfo = response.data;
+                    const result = response.data;
+                    
+                    for(let i=0, il=result.child.length; i<il; i++) {
+                        result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
+                    }
+
+                    app._data.mainDirInfo = result;
                     app.sortFileList(app._data.mainDirInfo.child, app._data.sortInfo.target);
                 });
         },
@@ -61,44 +67,40 @@ const app = new Vue({
             app.sortFileList(app._data.mainDirInfo.child, target, direction);
             return true;
         },
-        getIconFromExt: ext => {
+        getExtDetail: ext => {
             let icon = '';
-
-            switch (ext) {
-                case 'directory':
-                    icon = 'folder';
-                    break;
-                case '.txt':
-                    icon = 'edit_note';
-                    break;
-                case '.mp4':
-                    icon = 'movie';
-                    break;
-                default:
-                    icon = 'file_present';
-            }
-
-            return icon;
-        },
-        getCmtFromExt: ext => {
+            let iconColor = '';
             let extCmt = '';
-
-            if (ext == 'directory') return '폴더';
 
             if (ext != '') extCmt = ext.substring(1, ext.length);
 
             switch (ext) {
+                case 'directory':
+                    icon = 'folder';
+                    iconColor = '';
+                    extCmt = '폴더';
+                    break;
                 case '.txt':
+                    icon = 'edit_note';
+                    iconColor = '';
                     extCmt = '텍스트 문서';
                     break;
                 case '.mp4':
+                    icon = 'movie';
+                    iconColor = '';
                     extCmt += ' 동영상';
                     break;
                 default:
+                    icon = 'file_present';
+                    iconColor = '';
                     extCmt += ' 파일';
             }
 
-            return extCmt;
+            return {
+                icon,
+                iconColor,
+                cmt
+            };
         },
         easterEgg: () => {
             // svg 배경은 저사양 컴퓨터에서 렉이 너무 심해서 기능 제거함

@@ -81,14 +81,15 @@ html
                         td.chkbox
                           input(type="checkbox" name="file-chk" :value="file.name")
                         td.icon
-                          i.material-icons {{ getIconFromExt(file.ext) }}
+                          i.material-icons {{ file.extDetail.icon }}
                         td.name {{ file.name }}
                         td.mtime {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
-                        td.ext-type {{ getCmtFromExt(file.ext) }}
+                        td.ext-type {{ file.extDetail.cmt }}
                         td.size {{ getEasyFileSize(file.size) }}
                     template(v-if="mainDirInfo.child.length == 0")
                       tr
                         td.empty-file(colspan="6") 파일이 없습니다
+            //- div {{ mainDirInfo }}
       footer 
     script(src="/javascripts/common/common.js")
     script(src="/javascripts/views/vIndex.js")
