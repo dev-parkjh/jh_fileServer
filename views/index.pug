@@ -12,18 +12,27 @@ html
       header
         .logo(@dblclick="easterEgg();")
           .site-name jh_fileServer
-        .search 
+        .search r
           .search-bar
             .icon-box32
               i.material-icons.md-32 search
             input(type="text" placeholder="Search...")
-            span.slider
+            span.serch-bar-slider
         .menu
           .user 
             button 
               span Login
           .icon-box32.rotate120
             i.material-icons.md-32 settings
+          .setting
+            span Theme
+            label.switch
+              input(type="checkbox")
+              //- .icon-box24
+                i.material-icons wb_sunny
+              span.slider
+              //- .icon-box24
+                i.material-icons mode_night
       .main
         aside
           ul

@@ -38,7 +38,7 @@ body[theme="dark"] {
   --sidebar-background-color: #252525dc;
   --main-hover-color: #2d2d2d;
   --main-active-color: #373737;
-  --focus-border-color: #b57740;
+  --focus-border-color: #d07524;
   --search-placeholder-color: #6c6c6c;
 }
 
@@ -119,6 +119,15 @@ header>div {
   height: 50px;
 }
 
+.icon-box24 {
+  display: inline-block;
+  margin-left: 14px;
+  border-radius: 26px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--main-hover-color);
+}
+
 .icon-box32 {
   display: inline-block;
   transition-duration: 0.3s;
@@ -177,6 +186,7 @@ header>div {
   float: right;
   margin-top: 7px;
   width: var(--menu-width);
+  position: relative;
 }
 
 .menu>div {
@@ -228,6 +238,83 @@ header>div {
   right: 0;
   opacity: 1;
 }
+
+.setting {
+  width: 160px;
+  height: 78px;
+  position: absolute;
+  left: 18px;
+  top: 5px;
+  /* display: none; */
+  background-color: var(--main-active-color);
+  border-radius: 10px;
+}
+
+.setting:after {
+  border-top: 10px solid transparent;
+  border-left: 12px solid var(--main-active-color);
+  border-right: 0px solid transparent;
+  border-bottom: 10px solid transparent;
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: 158px;
+}
+
+.setting>span {
+  position: relative;
+  top: 3px;
+  left: 14px;
+  font-family: 'BMJUA', sans-serif;
+}
+
+.switch {
+  display: block;
+  position: relative;
+  top: -5px;
+  left: 50px;
+}
+
+
+.switch>input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  width: 56px;
+  height: 26px;
+  cursor: pointer;
+  top: 18px;
+  left: 0;
+  background-color: var(--focus-border-color);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+
 
 .main {
   min-width: 820px;
