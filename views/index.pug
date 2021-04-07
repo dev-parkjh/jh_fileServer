@@ -7,12 +7,12 @@ html
     link(rel='stylesheet', href='/stylesheets/scrollbar.css')
     script(src="/javascripts/external/axios.min.js")
     script(src="/javascripts/external/vue.min.js")
-  body(theme="light")
+  body
     #app.no-drag
       header
         .logo(@dblclick="easterEgg();")
           .site-name jh_fileServer
-        .search r
+        .search
           .search-bar
             .icon-box32
               i.material-icons.md-32 search
@@ -22,16 +22,15 @@ html
           .user 
             button 
               span Login
-          .icon-box32.rotate120
+          .icon-box32.rotate120(@click="isSettingOpen = !isSettingOpen")
             i.material-icons.md-32 settings
-          .setting
-            span Theme
-            label.switch
-              input(type="checkbox")
-              //- .icon-box24
+          .setting(:class="{active: isSettingOpen}")
+            .close(@click="isSettingOpen = false") x
+            div Theme
+            label.theme
+              .icon-box24(:class="{ active: !isDarkMode }" @click="isDarkMode=false")
                 i.material-icons wb_sunny
-              span.slider
-              //- .icon-box24
+              .icon-box24(:class="{ active: isDarkMode }" @click="isDarkMode=true")
                 i.material-icons mode_night
       .main
         aside

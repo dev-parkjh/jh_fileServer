@@ -11,7 +11,9 @@ const app = new Vue({
             sortInfo: {
                 target: 'name',
                 direction: 'asc'
-            }
+            },
+            isDarkMode: false,
+            isSettingOpen: false
         }
     },
     methods: {
@@ -30,8 +32,8 @@ const app = new Vue({
             axios.get('/dir')
                 .then(response => {
                     const result = response.data;
-                    
-                    for(let i=0, il=result.child.length; i<il; i++) {
+
+                    for (let i = 0, il = result.child.length; i < il; i++) {
                         result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
                     }
 
@@ -107,6 +109,11 @@ const app = new Vue({
         }
     },
     mounted: () => {
+    },
+    watch: {
+        isDarkMode: val => {
+            document.body.setAttribute('theme', val ? 'dark' : 'light');
+        }
     }
 });
 
