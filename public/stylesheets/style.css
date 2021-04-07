@@ -99,7 +99,7 @@ header>div {
 
 .logo>.site-name {
   margin-top: 16px;
-  margin-left: 12px;
+  margin-left: 18px;
   background-clip: text;
   background-image: url(/images/svg/logo.svg);
   width: var(--aside-width);

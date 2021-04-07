@@ -107,9 +107,6 @@ const app = new Vue({
         }
     },
     mounted: () => {
-        const el = document.querySelector('.site-name')
-        const fx = new TextScramble(el)
-        fx.setText(el.innerText, 40);
     }
 });
 
