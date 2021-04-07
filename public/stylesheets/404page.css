@@ -59,23 +59,12 @@ body {
   display: inline-block;
 }
 
-.left {
-  width: 25%;
-  height: 100%;
-}
-
 .main {
-  width: 40%;
+  width: 500px;
   height: 100%;
-  vertical-align: top;
-  min-width: 360px;
-  position: relative;
+  position: fixed;
   top: 24%;
-}
-
-.right {
-  width: 35%;
-  height: 100%;
+  left: 25%
 }
 
 .text-art {
@@ -175,9 +164,9 @@ button>span::before {
   opacity: 1;
 }
 
-.right>p {
+.site-info {
   bottom: 0px;
   right: 16px;
-  position: absolute;
+  position: fixed;
   color: #888888;
 }
