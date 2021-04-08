@@ -11,13 +11,69 @@ html
     #app.no-drag
       header
         .logo 
+          .site-name jh_fileServer
         .search 
+          .icon
+            .icon-box32
+              i.material-icons.md-32 search
+          .bar
+            input.input-search(type="text" placeholder="Search...")
+            //- span.serch-bar-slider
         .setting 
-        .login
+          .icon-box32(@click="isSettingOpen = !isSettingOpen")
+            i.material-icons.md-32 settings
+        //- .login
+          button 
+            span Login
       main
         aside
-        section
-          //- div {{ mainDirInfo }}
+          ul
+            li.active
+              i.material-icons folder 
+              span My Storage
+            li
+              i.material-icons share 
+              span Public
+            li
+              i.material-icons delete  
+              span Trash 
+        section.view
+          //- nav home > test
+          article.dir-info
+            .icon
+              i.material-icons.md-56 folder_open
+            .dir
+              .name {{ dirInfo.name }}
+              .info {{ dirInfo.child.length }} items
+                | · {{ getEasyFileSize(dirInfo.size) }}
+            .download
+            .options
+          article.file-list
+            .file-list-header
+              //- .chkbox
+                input(type="checkbox" name="all-file-chk")
+              .icon 
+              .name Name
+              .date Date 
+              .type Type 
+              .size Size
+            .file-list-body.scrollbar
+              template(v-if="dirInfo.child.length != 0")
+                .row(v-for="file in dirInfo.child" :key="file.name")
+                  //- .chkbox
+                    input(type="checkbox" name="file-chk" :value="file.name")
+                  .icon
+                    i.material-icons {{ file.extDetail.icon }}
+                  .name {{ file.name }}
+                  .date {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
+                  .type {{ file.extDetail.cmt }}
+                  .size {{ getEasyFileSize(file.size) }}
+              template(v-if="dirInfo.child.length == 0")
+                .row
+                  .empty-file 파일이 없습니다
+          //- article.file-gallery
+          //- section.file-info
       footer 
+        //- div {{ dirInfo }}
     script(src="/javascripts/common/common.js")
     script(src="/javascripts/views/vIndex.js")

@@ -2,7 +2,7 @@ const app = new Vue({
     el: '#app',
     data: () => {
         return {
-            dirInfo: {
+            mainDirInfo: {
                 name: '-',
                 size: 0,
                 mtime: '',
@@ -37,8 +37,8 @@ const app = new Vue({
                         result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
                     }
 
-                    app._data.dirInfo = result;
-                    app.sortFileList(app._data.dirInfo.child, app._data.sortInfo.target);
+                    app._data.mainDirInfo = result;
+                    app.sortFileList(app._data.mainDirInfo.child, app._data.sortInfo.target);
                 });
         },
         sortFileList: (fileList, target, direction) => {
@@ -66,7 +66,7 @@ const app = new Vue({
         },
         sortFileListByTarget: target => {
             const direction = app._data.sortInfo.target == target && app._data.sortInfo.direction == 'asc' ? 'desc' : 'asc';
-            app.sortFileList(app._data.dirInfo.child, target, direction);
+            app.sortFileList(app._data.mainDirInfo.child, target, direction);
             return true;
         },
         getExtDetail: ext => {

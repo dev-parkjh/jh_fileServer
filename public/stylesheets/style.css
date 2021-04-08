@@ -1,16 +1,16 @@
 @font-face {
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-weight: 300;
   font-style: normal;
   font-display: swap;
-  src: url(/fonts/NotoSansKR-Light.woff2) format('woff2');
+  src: url(/fonts/NotoSansKR-Light.woff2) format("woff2");
 }
 
 @font-face {
-  font-family: 'BMJUA';
+  font-family: "BMJUA";
   font-weight: normal;
   font-style: normal;
-  src: url(/fonts/BMJUA.woff) format('woff');
+  src: url(/fonts/BMJUA.woff) format("woff");
 }
 
 :root {
@@ -37,7 +37,8 @@ body[theme="dark"] {
   --search-placeholder-color: #6c6c6c;
 }
 
-html, body {
+html,
+body {
   margin: 0px;
   padding: 0px;
   overflow: hidden;
@@ -47,7 +48,7 @@ html, body {
 body {
   background-color: var(--main-background-color);
   color: var(--main-color);
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 div {
@@ -77,22 +78,101 @@ header {
 
 .logo {
   width: var(--side-width);
-  background-color: red;
+  min-width: var(--side-width);
+  line-height: var(--header-height);
+}
+
+.logo>.site-name {
+  margin-left: 18px;
+  background-clip: text;
+  background-image: url(/images/svg/logo.svg);
+  width: var(--aside-width);
+  font-family: 'BMJUA', sans-serif;
+  font-size: 28px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .search {
   flex: 1;
+  min-width: 624px;
+  display: flex;
+}
+
+.search>.icon {
+  width: 66px;
+  min-width: 66px;
+  text-align: center;
+  /* margin-left: 10px; */
+}
+
+.search>.icon>.icon-box32 {
+  margin: 8px;
+}
+
+.search>.bar {
+  flex: 1;
+  line-height: 60px;
+}
+
+.input-search {
+  border: none;
+  background: transparent;
+  padding: 2px;
+  width: 380px;
+  max-width: 380px;
+  height: 32px;
+  color: var(--main-color);
+  font-size: large;
+}
+
+.input-search:focus {
+  outline: none;
+  border-bottom: var(--focus-border-color) solid 2px;
 }
 
 .setting {
-  width: 50px;
-  background-color: blue;
+  width: 66px;
+  min-width: 66px;
 }
+
+.setting>.icon-box32 {
+  margin: 8px;
+}
+
 
 .login {
   width: 120px;
-  background-color: red;
+  min-width: 120px;
+  line-height: var(--header-height);
+  text-align: center;
 }
+
+
+.login>button {
+  border: none;
+  border-radius: 12px;
+  background-color: var(--main-hover-color);
+  cursor: pointer;
+  width: 90px;
+  height: 40px;
+  color: var(--main-color);
+  font-size: 16px;
+}
+
+.login>button:focus {
+  outline: none;
+}
+
+.login>button:hover {
+  background-color: var(--main-active-color);
+}
+
+.login>button>span {
+  position: relative;
+  transition: 0.4s;
+}
+
 
 main {
   flex: 1;
@@ -101,5 +181,169 @@ main {
 
 aside {
   width: var(--side-width);
-  background-color: blue;
+  min-width: var(--side-width);
+}
+
+aside>ul {
+  margin: 10px 0px 0px 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+aside>ul>li {
+  display: block;
+  transition-duration: 0.1s;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding-top: 10px;
+  margin-right: 10px;
+  height: 40px;
+}
+
+aside>ul>li:hover {
+  background-color: var(--main-hover-color);
+  cursor: pointer;
+}
+
+aside>ul>li.active {
+  background-color: var(--main-active-color);
+}
+
+aside>ul>li>i {
+  margin-top: 2px;
+  margin-left: 18px;
+}
+
+aside>ul>li>span {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
+  line-height: 27px;
+  font-size: large;
+}
+
+
+
+section.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dir-info {
+  height: 78px;
+  display: flex;
+}
+
+.dir-info>.icon {
+  width: 92px;
+  min-width: 92px;
+  line-height: 126px;
+  text-align: center;
+  margin-left: 18px;
+}
+
+.dir-info>.dir>.name {
+  margin-top: 10px;
+  font-size: x-large;
+}
+
+.dir-info>.dir>.info {
+  margin-left: 4px;
+  font-size: small;
+}
+
+/* viewType == fileList */
+
+.file-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-list-header {
+  padding-left: 12px;
+  margin-left: 16px;
+  margin-right: 16px;
+  height: 36px;
+  line-height: 36px;
+  display: flex;
+  font-weight: bold;
+  border-bottom: #cccccc solid 1px;
+}
+
+.file-list-body {
+  flex: 1;
+  margin-left: 16px;
+  /* padding-right: 2px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.file-list-body>.row {
+  display: flex;
+  height: 52px;
+  min-height: 52px;
+  line-height: 52px;
+  border-radius: 10px;
+  padding-left: 12px;
+  /* border-bottom: #cccccc solid 1px; */
+}
+
+.file-list-body>.row:hover {
+  background-color: var(--main-hover-color);
+  cursor: pointer;
+}
+
+.file-list .chkbox,
+.file-list .icon {
+  width: 46px;
+  text-align: center;
+}
+
+.file-list .icon>i {
+  line-height: 52px;
+  /* margin-left: 12px; */
+}
+
+.file-list .name {
+  flex: 1;
+  padding-left: 6px;
+  min-width: 360px;
+}
+
+.file-list .date,
+.file-list .type {
+  width: 130px;
+}
+
+.file-list .size {
+  width: 90px;
+}
+
+.file-list .empty-file {
+  height: 70px;
+  line-height: 70px;
+  flex: 1;
+  text-align: center;
+}
+
+.file-info {
+  width: 500px;
+}
+
+/* 아이콘 관련 영역 */
+.icon-box32 {
+  transition-duration: 0.3s;
+  border-radius: 26px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 70px;
+  display: inline-block;
+}
+
+.icon-box32:hover {
+  background-color: var(--main-hover-color);
+  cursor: pointer;
 }
