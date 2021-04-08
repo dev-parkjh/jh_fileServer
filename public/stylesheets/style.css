@@ -65,6 +65,7 @@ div {
 }
 
 #app {
+  min-width: 800px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -103,7 +104,7 @@ header {
   width: 66px;
   min-width: 66px;
   text-align: center;
-  /* margin-left: 10px; */
+  margin-left: 10px;
 }
 
 .search>.icon>.icon-box32 {
@@ -236,11 +237,11 @@ section.view {
 }
 
 .dir-info>.icon {
-  width: 92px;
-  min-width: 92px;
-  line-height: 126px;
+  width: 74px;
+  min-width: 74px;
+  line-height: 114px;
   text-align: center;
-  margin-left: 18px;
+  margin-left: 26px;
 }
 
 .dir-info>.dir>.name {
@@ -295,7 +296,11 @@ section.view {
   cursor: pointer;
 }
 
-.file-list .chkbox,
+.file-list .chkbox {
+  width: 32px;
+  text-align: center;
+}
+
 .file-list .icon {
   width: 46px;
   text-align: center;
@@ -309,7 +314,12 @@ section.view {
 .file-list .name {
   flex: 1;
   padding-left: 6px;
-  min-width: 360px;
+  padding-right: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .file-list .date,

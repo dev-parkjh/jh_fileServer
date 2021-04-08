@@ -41,7 +41,7 @@ html
           //- nav home > test
           article.dir-info
             .icon
-              i.material-icons.md-56 folder_open
+              i.material-icons.md-48 folder_open
             .dir
               .name {{ dirInfo.name }}
               .info {{ dirInfo.child.length }} items
@@ -50,7 +50,7 @@ html
             .options
           article.file-list
             .file-list-header
-              //- .chkbox
+              .chkbox
                 input(type="checkbox" name="all-file-chk")
               .icon 
               .name Name
@@ -60,7 +60,7 @@ html
             .file-list-body.scrollbar
               template(v-if="dirInfo.child.length != 0")
                 .row(v-for="file in dirInfo.child" :key="file.name")
-                  //- .chkbox
+                  .chkbox
                     input(type="checkbox" name="file-chk" :value="file.name")
                   .icon
                     i.material-icons {{ file.extDetail.icon }}
