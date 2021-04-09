@@ -104,26 +104,23 @@ const app = new Vue({
                 cmt
             };
         },
-        easterEgg: () => {
-            // svg 배경은 저사양 컴퓨터에서 렉이 너무 심해서 기능 제거함
+        themeSetting: () => {
+            const defaultTheme = 'light';
+            const theme = localStorage.getItem('theme') || defaultTheme;
+            document.body.setAttribute('theme', theme);
+            app._data.isDarkMode = (theme == 'dark');
         }
     },
     mounted: () => {
     },
     watch: {
         isDarkMode: val => {
-            document.body.setAttribute('theme', val ? 'dark' : 'light');
+            const theme = val ? 'dark' : 'light';
+            document.body.setAttribute('theme', theme);
+            localStorage.setItem('theme', theme);
         }
     }
 });
 
+app.themeSetting();
 app.getDirInfo();
-
-
-
-// let OSTheme = localStorage.os_theme;
-// let defaultTheme = 'light';
-// document.documentElement.setAttribute(
-//     'data-theme',
-//     OSTheme || defaultTheme,
-// );

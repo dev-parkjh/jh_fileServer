@@ -31,7 +31,6 @@ body[theme="dark"] {
     background-color: #cccccc;
     border-radius: 16px;
     border: 6px solid var(--scrollber-background-color);
-    ;
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {

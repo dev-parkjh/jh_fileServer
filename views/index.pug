@@ -19,11 +19,19 @@ html
           .bar
             input.input-search(type="text" placeholder="Search...")
             //- span.serch-bar-slider
-        .setting 
-          .icon-box32(@click="isSettingOpen = !isSettingOpen")
+        .setting
+          .icon-box32(@click="isSettingOpen = !isSettingOpen" :class="{active: isSettingOpen}")
             i.material-icons.md-32 settings
+          .setting-modalless(:class="{active: isSettingOpen}")
+            .close(@click="isSettingOpen = false") x
+            div Theme
+            label.theme
+              .icon-box24(:class="{ active: !isDarkMode }" @click="isDarkMode=false")
+                i.material-icons wb_sunny
+              .icon-box24(:class="{ active: isDarkMode }" @click="isDarkMode=true")
+                i.material-icons mode_night
         //- .login
-          button 
+          button
             span Login
       main
         aside

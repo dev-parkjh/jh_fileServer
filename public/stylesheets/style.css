@@ -16,6 +16,10 @@
 :root {
   --header-height: 65px;
   --side-width: 256px;
+  --nav-height: 0px;
+  --dir-info-height: 78px;
+  --file-list-header-height: 36px;
+  --file-list-body-height: calc(100vh - var(--header-height) - var(--nav-height) - var(--dir-info-height) - var(--file-list-header-height) - 2px);
   --main-color: #323232;
   --main-background-color: #fcfcfc;
   --border-color: #cccccc;
@@ -33,7 +37,7 @@ body[theme="dark"] {
   --sidebar-background-color: #252525dc;
   --main-hover-color: #2d2d2d;
   --main-active-color: #373737;
-  --focus-border-color: #d07524;
+  --focus-border-color: #ff7043;
   --search-placeholder-color: #6c6c6c;
 }
 
@@ -135,10 +139,59 @@ header {
 .setting {
   width: 66px;
   min-width: 66px;
+  position: relative;
 }
 
 .setting>.icon-box32 {
   margin: 8px;
+}
+
+.setting-modalless {
+  display: none;
+}
+
+.setting-modalless.active {
+  display: block;
+  width: 160px;
+  height: 78px;
+  position: absolute;
+  left: -165px;
+  top: 10px;
+  background-color: var(--main-active-color);
+  border-radius: 10px;
+  opacity: 1;
+  animation: fadein 0.4s;
+}
+
+.setting-modalless:after {
+  border-top: 10px solid transparent;
+  border-left: 12px solid var(--main-active-color);
+  border-right: 0px solid transparent;
+  border-bottom: 10px solid transparent;
+  content: "";
+  position: absolute;
+  top: 11px;
+  left: 158px;
+}
+
+.setting-modalless>div {
+  margin-top: 10px;
+  margin-left: 14px;
+  font-family: 'BMJUA', sans-serif;
+}
+
+.setting-modalless>.close {
+  margin: 0px;
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  font-family: 'Noto-Snans', sans-serif;
+  cursor: pointer;
+}
+
+.setting-modalless>.theme {
+  display: block;
+  margin-top: 10px;
 }
 
 
@@ -171,13 +224,12 @@ header {
 
 .login>button>span {
   position: relative;
-  transition: 0.4s;
 }
-
 
 main {
   flex: 1;
   display: flex;
+  height: calc(100% - var(--header-height));
 }
 
 aside {
@@ -193,7 +245,6 @@ aside>ul {
 
 aside>ul>li {
   display: block;
-  transition-duration: 0.1s;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   padding-top: 10px;
@@ -223,16 +274,18 @@ aside>ul>li>span {
   font-size: large;
 }
 
-
-
 section.view {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
+nav {
+  height: var(--nav-height);
+}
+
 .dir-info {
-  height: 78px;
+  height: var(--dir-info-height);
   display: flex;
 }
 
@@ -266,19 +319,19 @@ section.view {
   padding-left: 12px;
   margin-left: 16px;
   margin-right: 16px;
-  height: 36px;
-  line-height: 36px;
+  height: var(--file-list-header-height);
+  line-height: var(--file-list-header-height);
   display: flex;
   font-weight: bold;
   border-bottom: #cccccc solid 1px;
 }
 
 .file-list-body {
-  flex: 1;
   margin-left: 16px;
   /* padding-right: 2px; */
   display: flex;
   flex-direction: column;
+  height: var(--file-list-body-height);
 }
 
 .file-list-body>.row {
@@ -343,8 +396,29 @@ section.view {
 }
 
 /* 아이콘 관련 영역 */
+.icon-box24 {
+  display: inline-block;
+  margin-left: 14px;
+  border-radius: 26px;
+  width: 30px;
+  height: 30px;
+  background-color: var(--main-hover-color);
+  text-align: center;
+}
+
+.icon-box24:hover {
+  cursor: pointer;
+}
+
+.icon-box24>i {
+  line-height: 30px;
+}
+
+.icon-box24.active {
+  color: var(--focus-border-color);
+}
+
 .icon-box32 {
-  transition-duration: 0.3s;
   border-radius: 26px;
   width: 50px;
   height: 50px;
@@ -356,4 +430,14 @@ section.view {
 .icon-box32:hover {
   background-color: var(--main-hover-color);
   cursor: pointer;
+}
+
+.icon-box32.active {
+  background-color: var(--main-hover-color);
+}
+
+/* 애니메이션 관련 */
+
+.trans-3s-all {
+  transition: 0.3s all ease;
 }
