@@ -2,7 +2,7 @@ const app = new Vue({
     el: '#app',
     data: () => {
         return {
-            dirInfo: {
+            mainDirInfo: {
                 name: '-',
                 size: 0,
                 mtime: '',
@@ -37,8 +37,8 @@ const app = new Vue({
                         result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
                     }
 
-                    app._data.dirInfo = result;
-                    app.sortFileList(app._data.dirInfo.child, app._data.sortInfo.target);
+                    app._data.mainDirInfo = result;
+                    app.sortFileList(app._data.mainDirInfo.child, app._data.sortInfo.target);
                 });
         },
         sortFileList: (fileList, target, direction) => {
@@ -66,7 +66,7 @@ const app = new Vue({
         },
         sortFileListByTarget: target => {
             const direction = app._data.sortInfo.target == target && app._data.sortInfo.direction == 'asc' ? 'desc' : 'asc';
-            app.sortFileList(app._data.dirInfo.child, target, direction);
+            app.sortFileList(app._data.mainDirInfo.child, target, direction);
             return true;
         },
         getExtDetail: ext => {
@@ -104,23 +104,26 @@ const app = new Vue({
                 cmt
             };
         },
-        themeSetting: () => {
-            const defaultTheme = 'light';
-            const theme = localStorage.getItem('theme') || defaultTheme;
-            document.body.setAttribute('theme', theme);
-            app._data.isDarkMode = (theme == 'dark');
+        easterEgg: () => {
+            // svg 배경은 저사양 컴퓨터에서 렉이 너무 심해서 기능 제거함
         }
     },
     mounted: () => {
     },
     watch: {
         isDarkMode: val => {
-            const theme = val ? 'dark' : 'light';
-            document.body.setAttribute('theme', theme);
-            localStorage.setItem('theme', theme);
+            document.body.setAttribute('theme', val ? 'dark' : 'light');
         }
     }
 });
 
-app.themeSetting();
 app.getDirInfo();
+
+
+
+// let OSTheme = localStorage.os_theme;
+// let defaultTheme = 'light';
+// document.documentElement.setAttribute(
+//     'data-theme',
+//     OSTheme || defaultTheme,
+// );

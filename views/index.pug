@@ -7,33 +7,33 @@ html
     link(rel='stylesheet', href='/stylesheets/scrollbar.css')
     script(src="/javascripts/external/axios.min.js")
     script(src="/javascripts/external/vue.min.js")
-  body(theme="light")
+  body
     #app.no-drag
       header
-        .logo(@dblclick="easterEgg();")
+        .logo 
           .site-name jh_fileServer
-        .search r
-          .search-bar
+        .search 
+          .icon
             .icon-box32
               i.material-icons.md-32 search
-            input(type="text" placeholder="Search...")
-            span.serch-bar-slider
-        .menu
-          .user 
-            button 
-              span Login
-          .icon-box32.rotate120
+          .bar
+            input.input-search(type="text" placeholder="Search...")
+            //- span.serch-bar-slider
+        .setting
+          .icon-box32(@click="isSettingOpen = !isSettingOpen" :class="{active: isSettingOpen}")
             i.material-icons.md-32 settings
-          .setting
-            span Theme
-            label.switch
-              input(type="checkbox")
-              //- .icon-box24
+          .setting-modalless(:class="{active: isSettingOpen}")
+            .close(@click="isSettingOpen = false") x
+            div Theme
+            label.theme
+              .icon-box24(:class="{ active: !isDarkMode }" @click="isDarkMode=false")
                 i.material-icons wb_sunny
-              span.slider
-              //- .icon-box24
+              .icon-box24(:class="{ active: isDarkMode }" @click="isDarkMode=true")
                 i.material-icons mode_night
-      .main
+        //- .login
+          button
+            span Login
+      main
         aside
           ul
             li.active
@@ -45,60 +45,43 @@ html
             li
               i.material-icons delete  
               span Trash 
-        section
-          article.content
-            .content-header
-              nav
-              .content-header-icon.material-icons.md-56 folder_open
-              .content-header-info
-                .dir-name {{ mainDirInfo.name }}
-                .dir-info
-                  span {{ mainDirInfo.child.length }} items · {{ getEasyFileSize(mainDirInfo.size) }}
-            .content-body
-              .file-header
-                table
-                  thead 
-                    tr
-                      th.chkbox
-                        input(type="checkbox" name="all-file-chk")
-                      th.icon
-                      th.name
-                        span.text(@click="sortFileListByTarget('name');")
-                          span Name
-                          i.material-icons.md-14(v-show="sortInfo.target == 'name'")
-                            | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                      th.mtime
-                        span.text(@click="sortFileListByTarget('mtime');")
-                          span Date
-                          i.material-icons.md-14(v-show="sortInfo.target == 'mtime'")
-                            | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                      th.ext-type
-                        span.text(@click="sortFileListByTarget('ext');")
-                          span Type
-                          i.material-icons.md-14(v-show="sortInfo.target == 'ext'")
-                            | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-                      th.size
-                        span.text(@click="sortFileListByTarget('size');")
-                          span Size
-                          i.material-icons.md-14(v-show="sortInfo.target == 'size'")
-                            | {{ sortInfo.direction == 'asc' ? 'expand_more' : 'expand_less' }}
-              .file-list.scrollbar
-                table
-                  tbody 
-                    template(v-if="mainDirInfo.child.length != 0")
-                      tr(v-for="file in mainDirInfo.child" :key="file.name" :class="{'is-directory' : file.isDirectory}")
-                        td.chkbox
-                          input(type="checkbox" name="file-chk" :value="file.name")
-                        td.icon
-                          i.material-icons {{ file.extDetail.icon }}
-                        td.name {{ file.name }}
-                        td.mtime {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
-                        td.ext-type {{ file.extDetail.cmt }}
-                        td.size {{ getEasyFileSize(file.size) }}
-                    template(v-if="mainDirInfo.child.length == 0")
-                      tr
-                        td.empty-file(colspan="6") 파일이 없습니다
-            //- div {{ mainDirInfo }}
+        section.view
+          //- nav home > test
+          article.dir-info
+            .icon
+              i.material-icons.md-48 folder_open
+            .dir
+              .name {{ dirInfo.name }}
+              .info {{ dirInfo.child.length }} items
+                | · {{ getEasyFileSize(dirInfo.size) }}
+            .download
+            .options
+          article.file-list
+            .file-list-header
+              .chkbox
+                input(type="checkbox" name="all-file-chk")
+              .icon 
+              .name Name
+              .date Date 
+              .type Type 
+              .size Size
+            .file-list-body.scrollbar
+              template(v-if="dirInfo.child.length != 0")
+                .row(v-for="file in dirInfo.child" :key="file.name")
+                  .chkbox
+                    input(type="checkbox" name="file-chk" :value="file.name")
+                  .icon
+                    i.material-icons {{ file.extDetail.icon }}
+                  .name {{ file.name }}
+                  .date {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
+                  .type {{ file.extDetail.cmt }}
+                  .size {{ getEasyFileSize(file.size) }}
+              template(v-if="dirInfo.child.length == 0")
+                .row
+                  .empty-file 파일이 없습니다
+          //- article.file-gallery
+          //- section.file-info
       footer 
+        //- div {{ dirInfo }}
     script(src="/javascripts/common/common.js")
     script(src="/javascripts/views/vIndex.js")
