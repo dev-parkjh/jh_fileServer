@@ -201,4 +201,6 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,windows,linux
 
 data/*
-!data/.keep
+data/public/*
+!data/public
+!data/public/.keep

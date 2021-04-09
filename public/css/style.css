@@ -90,7 +90,7 @@ header {
 .logo>.site-name {
   margin-left: 18px;
   background-clip: text;
-  background-image: url(/images/svg/logo.svg);
+  background-image: url(/img/svg/logo.svg);
   width: var(--aside-width);
   font-family: 'BMJUA', sans-serif;
   font-size: 28px;
