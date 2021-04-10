@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title= title
+    title 404 Error
     link(rel='stylesheet', href='/css/404page.css')
   body(theme="light")
     .error-code404.no-drag
@@ -23,4 +23,10 @@ html
           button(onClick="location.href='/';")
             span 메인 페이지로 가기
       p.site-info jh_webStorage | 2021 | dev.parkjh
-
+    script. 
+      const themeSetting = () => {
+          const defaultTheme = 'light';
+          const theme = localStorage.getItem('theme') || defaultTheme;
+          document.body.setAttribute('theme', theme);
+      }
+      themeSetting();

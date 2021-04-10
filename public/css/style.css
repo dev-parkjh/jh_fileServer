@@ -315,6 +315,13 @@ nav {
   flex-direction: column;
 }
 
+.file-list a,
+.file-list a:link,
+.file-list a:visited {
+  text-decoration: none;
+  color: var(--main-color);
+}
+
 .file-list-header {
   padding-left: 12px;
   margin-left: 16px;
@@ -373,6 +380,11 @@ nav {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+}
+
+.file-list .name>a {
+  display: block;
+  width: 100%;
 }
 
 .file-list .date,

@@ -28,18 +28,22 @@ const app = new Vue({
             }
             return `${Math.round(size).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${name[i]}`;
         },
-        getDirInfo: () => {
-            axios.get('/dir')
-                .then(response => {
-                    const result = response.data;
+        getDirInfo: path => {
+            path = path || location.pathname;
+            axios.get('/api/dir', {
+                params: {
+                    path: path
+                }
+            }).then(response => {
+                const result = response.data;
 
-                    for (let i = 0, il = result.child.length; i < il; i++) {
-                        result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
-                    }
+                for (let i = 0, il = result.child.length; i < il; i++) {
+                    result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
+                }
 
-                    app._data.dirInfo = result;
-                    app.sortFileList(app._data.dirInfo.child, app._data.sortInfo.target);
-                });
+                app._data.dirInfo = result;
+                app.sortFileList(app._data.dirInfo.child, app._data.sortInfo.target);
+            });
         },
         sortFileList: (fileList, target, direction) => {
             direction = direction || 'asc';
