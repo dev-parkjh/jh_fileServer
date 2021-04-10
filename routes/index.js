@@ -1,8 +1,8 @@
 const express = require('express');
 const fs = require('fs');
+const http = require('http');
 const path = require('path');
 const router = express.Router();
-
 
 const dataDir = path.normalize(__dirname + '/../data');
 
@@ -73,7 +73,22 @@ router.get('/*', (req, res, next) => {
       if (stats.isDirectory()) {
         res.render('index', { title: 'webStorage' });
       } else {
-        res.redirect(301, '/api/file' + req.path);
+        // api 프록시
+        const reqHeadersHostArr = req.headers.host.split(':');
+        const reqOptions = {
+          hostname: reqHeadersHostArr[0],
+          port: reqHeadersHostArr[1],
+          path: '/api/file' + req.path,
+          method: req.method,
+          headers: req.headers
+        };
+
+        const proxy = http.request(reqOptions, apiRes => {
+          res.writeHead(apiRes.statusCode, apiRes.headers);
+          apiRes.pipe(res, { end: true });
+        });
+
+        req.pipe(proxy, { end: true });
       }
     } else {
       res.status(404);
