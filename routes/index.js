@@ -35,7 +35,7 @@ router.get('/*', (req, res, next) => {
   req = reqExtend(req);
 
   if (req.isIe) {
-    res.render('ieGuide', { title: 'webStorage' });
+    res.render('ieGuide');
     return true;
   }
 
