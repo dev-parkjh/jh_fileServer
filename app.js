@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+const apiRouter = require('./routes/api');
 
 const app = express();
 
@@ -18,18 +19,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api', apiRouter);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const ua = req.headers['user-agent'];
-  const isIE = (ua.indexOf("MSIE ") > 0 || !!ua.match(/Trident.*rv\:11\./));
-
-  if (!isIE) {
-    res.render('404page', { title: '404 Error' });
-  } else {
-    res.render('ieGuide', { title: 'webStorage' });
-  }
+  res.render('404page');
 });
 
 // error handler
