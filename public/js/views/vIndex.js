@@ -28,18 +28,36 @@ const app = new Vue({
             }
             return `${Math.round(size).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ${name[i]}`;
         },
-        getDirInfo: () => {
-            axios.get('/dir')
-                .then(response => {
-                    const result = response.data;
+        getDirInfo: dirPath => {
+            let isFirstLoad = false;
+            if (dirPath == undefined) isFirstLoad = true;
 
-                    for (let i = 0, il = result.child.length; i < il; i++) {
-                        result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
-                    }
+            dirPath = dirPath || location.pathname;
 
-                    app._data.dirInfo = result;
-                    app.sortFileList(app._data.dirInfo.child, app._data.sortInfo.target);
-                });
+            axios.get('/api/dir', {
+                params: {
+                    dirPath: dirPath
+                }
+            }).then(response => {
+                const result = response.data;
+
+                for (let i = 0, il = result.child.length; i < il; i++) {
+                    result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
+                }
+
+                app._data.dirInfo = result;
+                app.sortFileList(app._data.dirInfo.child, app._data.sortInfo.target);
+
+                const histState = {
+                    dirInfo: app._data.dirInfo
+                }
+
+                if (isFirstLoad) {
+                    history.replaceState(histState, '', dirPath);
+                } else {
+                    history.pushState(histState, '', dirPath);
+                }
+            });
         },
         sortFileList: (fileList, target, direction) => {
             direction = direction || 'asc';
@@ -109,9 +127,20 @@ const app = new Vue({
             const theme = localStorage.getItem('theme') || defaultTheme;
             document.body.setAttribute('theme', theme);
             app._data.isDarkMode = (theme == 'dark');
+        },
+        linkClick: (event, child) => {
+            if (child.isDirectory) {
+                event.preventDefault();
+                event.stopPropagation();
+                const dirPath = location.pathname + '/' + child.name;
+                app.getDirInfo(dirPath);
+            }
         }
     },
     mounted: () => {
+        window.addEventListener('popstate', () => {
+            app._data.dirInfo = history.state.dirInfo;
+        });
     },
     watch: {
         isDarkMode: val => {

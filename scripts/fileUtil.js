@@ -132,4 +132,93 @@ const getDirInfo = dirPath => {
     return dirInfo;
 }
 
+/**
+ * 파일 확장자를 받아 contentType을 반환합니다.
+ * @param {String} ext 파일 확장자
+ * @returns {String} contentType
+ */
+const getMime = ext => {
+    let contentType = `application/octet-stream`;
+
+    switch (ext) {
+        case `js`:
+            contentType = `text/javascript`;
+            break;
+
+        case `css`:
+        case `html`:
+            contentType = `text/${ext}`;
+            break;
+
+        case `txt`:
+            contentType = `text/plain`;
+            break;
+
+        case `mp3`:
+            contentType = `audio/mpeg`;
+            break;
+
+        case `mp4`:
+            contentType = `video/mp4`;
+            break;
+
+        case `png`:
+        case `bmp`:
+        case `jpg`:
+        case `gif`:
+            contentType = `image/${ext}`;
+            break;
+    }
+
+    if (contentType.indexOf('text') > -1) {
+        contentType = contentType + '; charset=utf-8';
+    }
+
+    return contentType;
+}
+
+
+/**
+ * 파일을 chunkSize로 분리하여 전송하는 함수
+ * @param {String} filePath 파일 경로
+ * @param {Object} req request
+ * @param {Object} res response
+ */
+const sendChunkFile = (filePath, req, res) => {
+    const fileName = getNameFromPath(filePath);
+    const contentType = getMime(fileName.replace(/.*\./, ''));
+
+    const stats = fs.statSync(filePath);
+    const range = req.headers.range
+
+    if (range) {
+        const parts = range.replace(/bytes=/, "").split("-")
+        const start = parseInt(parts[0], 10)
+        const end = parts[1] ?
+            parseInt(parts[1], 10) :
+            stats.size - 1
+        const chunksize = (end - start) + 1
+        const stream = fs.createReadStream(filePath, {
+            start,
+            end
+        })
+
+        res.writeHead(206, {
+            "Content-Type": contentType,
+            "Content-Length": chunksize,
+            "Content-Range": `bytes ${start}-${end}/${stats.size}`,
+            "Accept-Ranges": `bytes`,
+        });
+        stream.pipe(res);
+    } else {
+        res.writeHead(200, {
+            "Content-Type": contentType,
+            "Content-Length": stats.size,
+            "Content-Disposition": `inline`
+        })
+        fs.createReadStream(filePath).pipe(res)
+    }
+}
+
 exports.getDirInfo = getDirInfo;
+exports.sendChunkFile = sendChunkFile;
