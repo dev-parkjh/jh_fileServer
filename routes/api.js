@@ -8,7 +8,7 @@ const router = express.Router();
 const dataDir = path.normalize(__dirname + '/../data');
 
 router.get('/dir', (req, res, next) => {
-    const dirPath = dataDir + decodeURI(req.query.path);
+    const dirPath = dataDir + decodeURI(req.query.dirPath);
     const dirInfo = fileUtil.getDirInfo(dirPath);
     res.json(dirInfo);
 });
