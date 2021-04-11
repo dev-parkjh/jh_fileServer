@@ -46,15 +46,25 @@ html
               i.material-icons delete  
               span Trash 
         section.view
-          //- nav home > test
+          .breadcrumbs
+            ul
+              li
+                a(href="/" @click="breadcrumbClick($event, '/public');")
+                  i.material-icons home
+              li(v-for="breadcrumb in breadcrumbs" :key="breadcrumb.path")
+                template(v-if="breadcrumb.name != 'home'") &nbsp;/&nbsp;
+                  a(:href="breadcrumb.path" @click="breadcrumbClick($event, breadcrumb.path);") {{ breadcrumb.name }}
           article.dir-info
             .icon
               i.material-icons.md-48 folder_open
             .dir
               .name {{ dirInfo.name }}
-              .info {{ dirInfo.child.length }} items
+              .info {{ dirInfo.child.length }} items 
                 | · {{ getEasyFileSize(dirInfo.size) }}
             .download
+            .upload 
+              .icon-box32
+                i.material-icons.md-32 upload
             .options
           article.file-list
             .file-list-header

@@ -16,10 +16,10 @@
 :root {
   --header-height: 65px;
   --side-width: 256px;
-  --nav-height: 0px;
+  --breadcrumbs-height: 34px;
   --dir-info-height: 78px;
   --file-list-header-height: 36px;
-  --file-list-body-height: calc(100vh - var(--header-height) - var(--nav-height) - var(--dir-info-height) - var(--file-list-header-height) - 2px);
+  --file-list-body-height: calc(100vh - var(--header-height) - var(--breadcrumbs-height) - var(--dir-info-height) - var(--file-list-header-height) - 2px);
   --main-color: #323232;
   --main-background-color: #fcfcfc;
   --border-color: #cccccc;
@@ -280,8 +280,37 @@ section.view {
   flex-direction: column;
 }
 
-nav {
-  height: var(--nav-height);
+.breadcrumbs {
+  height: var(--breadcrumbs-height);
+  margin-top: 14px;
+  margin-left: 42px;
+}
+
+.breadcrumbs ul {
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumbs li {
+  float: left;
+}
+
+.breadcrumbs a,
+.breadcrumbs a:visited {
+  text-decoration: none;
+  color: var(--main-color);
+}
+
+.breadcrumbs a:hover {
+  color: var(--focus-border-color);
+  cursor: pointer;
+}
+
+.breadcrumbs a i {
+  margin-top: -2px;
 }
 
 .dir-info {
@@ -297,6 +326,11 @@ nav {
   margin-left: 26px;
 }
 
+
+.dir-info>.dir {
+  flex: 1;
+}
+
 .dir-info>.dir>.name {
   margin-top: 10px;
   font-size: x-large;
@@ -305,6 +339,10 @@ nav {
 .dir-info>.dir>.info {
   margin-left: 4px;
   font-size: small;
+}
+
+.dir-info .icon-box32 {
+  margin: 8px;
 }
 
 /* viewType == fileList */

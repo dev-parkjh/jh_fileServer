@@ -12,6 +12,7 @@ const app = new Vue({
                 target: 'name',
                 direction: 'asc'
             },
+            breadcrumbs: [],
             isDarkMode: false,
             isSettingOpen: false
         }
@@ -57,6 +58,8 @@ const app = new Vue({
                 } else {
                     history.pushState(histState, '', dirPath);
                 }
+
+                app._data.breadcrumbs = app.getBreadcrumbs();
             });
         },
         sortFileList: (fileList, target, direction) => {
@@ -128,14 +131,41 @@ const app = new Vue({
             document.body.setAttribute('theme', theme);
             app._data.isDarkMode = (theme == 'dark');
         },
-        linkClick: (event, child) => {
-            if (child.isDirectory) {
+        linkClick: (event, target) => {
+            if (target.isDirectory) {
                 event.preventDefault();
                 event.stopPropagation();
-                const dirPath = location.pathname + '/' + child.name;
+                const dirPath = location.pathname + '/' + target.name;
                 app.getDirInfo(dirPath);
             }
+        },
+        getBreadcrumbs: () => {
+            const pathNameArr = decodeURI(location.pathname).split('/');
+            const breadcrumbs = [];
+
+            if (pathNameArr.length > 1) {
+                breadcrumbs[0] = {
+                    name: 'home',
+                    path: '/' + pathNameArr[1]
+                }
+
+                for (let i = 2, il = pathNameArr.length; i < il; i++) {
+                    breadcrumbs[i - 1] = {
+                        name: pathNameArr[i],
+                        path: breadcrumbs[i - 2].path + '/' + pathNameArr[i]
+                    }
+                }
+            }
+
+            return breadcrumbs;
+        },
+        breadcrumbClick: (event, dirPath) => {
+            event.preventDefault();
+            event.stopPropagation();
+            app.getDirInfo(dirPath);
         }
+    },
+    computed: {
     },
     mounted: () => {
         window.addEventListener('popstate', () => {
