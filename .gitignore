@@ -204,3 +204,4 @@ data/*
 data/public/*
 !data/public
 !data/public/.keep
+package-lock.json
