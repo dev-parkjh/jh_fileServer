@@ -181,5 +181,5 @@ const app = new Vue({
     }
 });
 
-app.themeSetting();
+// app.themeSetting();
 app.getDirInfo();

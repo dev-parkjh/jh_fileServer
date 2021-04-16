@@ -34,10 +34,10 @@ router.get('/', function (req, res, next) {
 router.get('/*', (req, res, next) => {
   req = reqExtend(req);
 
-  if (req.isIe) {
-    res.render('ieGuide');
-    return true;
-  }
+  // if (req.isIe) {
+  //   res.render('ieGuide');
+  //   return true;
+  // }
 
   // TODO: 세션 작업 해야 함
   const session = false;
