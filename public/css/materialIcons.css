@@ -52,3 +52,13 @@
 .material-icons.md-56 {
   font-size: 56px;
 }
+
+.icon-box32 {
+  font-size: 32px;
+  border-radius: 26px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 70px;
+  display: inline-block;
+}

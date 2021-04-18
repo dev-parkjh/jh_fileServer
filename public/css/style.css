@@ -18,11 +18,13 @@
   --header-height: 65px;
   --main-color: #333333;
   --main-background-color: #ffffff;
+  --aside-background-color: #eeeeee;
 }
 
 body[theme="dark"] {
   --main-color: #cccccc;
   --main-background-color: #222222;
+  --aside-background-color: #333333;
 }
 
 html,
@@ -62,13 +64,25 @@ aside {
   height: 100vh;
   display: flex;
 
-  background-color: aqua;
+  background-color: var(--aside-background-color);
 }
 
 .logo {
   width: var(--side-width);
   min-width: var(--side-width);
+  height: var(--header-height);
   line-height: var(--header-height);
+}
+
+.logo>.site-name {
+  display: inline;
+  margin-left: 18px;
+  background-clip: text;
+  background-image: url(/img/svg/logo.svg);
+  font-family: 'BMJUA', sans-serif;
+  font-size: 28px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 main {
