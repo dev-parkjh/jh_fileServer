@@ -117,13 +117,16 @@ aside {
 
 
 .upload-and-new>.material-icons {
-  line-height: 42px;
+  line-height: 40px;
   margin-left: 6px;
-  margin-right: 12px;
+  margin-right: 14px;
 }
 
 .upload-and-new>span {
   vertical-align: top;
+  /* width: 178px;
+  display: inline-block;
+  text-align: center; */
 }
 
 main {
