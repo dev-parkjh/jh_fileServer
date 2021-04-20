@@ -15,7 +15,8 @@
 
 :root {
   --aside-witdh: 300px;
-  --header-height: 65px;
+  --header-height: 72px;
+  --dir-info-height: 78px;
   --main-color: #333333;
   --main-background-color: #ffffff;
   --aside-background-color: #eeeeee;
@@ -73,8 +74,8 @@ aside {
 .logo {
   width: var(--side-width);
   min-width: var(--side-width);
-  height: 72px;
-  line-height: 72px;
+  height: var(--header-height);
+  line-height: var(--header-height);
   display: flex;
 }
 
@@ -135,6 +136,115 @@ main {
 
 header {
   height: var(--header-height);
+}
 
-  background-color: rebeccapurple;
+.dir-info {
+  height: var(--dir-info-height);
+  padding-left: 36px;
+}
+
+.dir-info>.name {
+  margin-top: 12px;
+  font-size: 26px;
+}
+
+.dir-info>.sub-info {
+  margin-top: 2px;
+  margin-left: 12px;
+  font-size: 14px;
+}
+
+.explorer-view>.table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.explorer-view>.table a,
+.explorer-view>.table a:link,
+.explorer-view>.table a:visited {
+  text-decoration: none;
+  color: var(--main-color);
+}
+
+.table-header {
+  padding-left: 12px;
+  margin-left: 16px;
+  margin-right: 16px;
+  height: var(--file-list-header-height);
+  line-height: var(--file-list-header-height);
+  display: flex;
+  font-weight: bold;
+  border-bottom: #cccccc solid 1px;
+}
+
+.table-body {
+  margin-left: 16px;
+  /* padding-right: 2px; */
+  display: flex;
+  flex-direction: column;
+  height: var(--file-list-body-height);
+}
+
+
+.table-body>.row {
+  display: flex;
+  height: 52px;
+  min-height: 52px;
+  line-height: 52px;
+  border-radius: 10px;
+  padding-left: 12px;
+  /* border-bottom: #cccccc solid 1px; */
+}
+
+.table-body>.row:hover {
+  background-color: var(--main-hover-color);
+  cursor: pointer;
+}
+
+.table .chkbox {
+  width: 32px;
+  text-align: center;
+}
+
+.table .icon {
+  width: 46px;
+  text-align: center;
+}
+
+.table .icon>i {
+  line-height: 52px;
+  /* margin-left: 12px; */
+}
+
+.table .name {
+  flex: 1;
+  padding-left: 6px;
+  padding-right: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.table .name>a {
+  display: block;
+  width: 100%;
+}
+
+.table .date,
+.table .type {
+  width: 130px;
+}
+
+.table .size {
+  width: 90px;
+}
+
+.table .empty-file {
+  height: 70px;
+  line-height: 70px;
+  flex: 1;
+  text-align: center;
 }
