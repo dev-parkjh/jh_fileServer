@@ -12,8 +12,10 @@ const app = new Vue({
                 target: 'name',
                 direction: 'asc'
             },
+            searchText: '',
             breadcrumbs: [],
             isDarkMode: false,
+            isSearchBarActive: false,
             isSettingOpen: false
         }
     },
@@ -181,5 +183,5 @@ const app = new Vue({
     }
 });
 
-// app.themeSetting();
+app.themeSetting();
 app.getDirInfo();

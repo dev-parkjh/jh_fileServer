@@ -7,92 +7,46 @@ html
     link(rel='stylesheet', href='/css/scrollbar.css')
     script(src="/js/external/axios.min.js")
     script(src="/js/external/vue.min.js")
-  body
+  body(theme="dark")
     #app.no-drag
-      header
-        .logo 
+      aside
+        .logo
+          .icon-box32.material-icons widgets
           .site-name jh_fileServer
-        .search 
-          .icon
-            .icon-box32
-              i.material-icons.md-32 search
-          .bar
-            input.input-search(type="text" placeholder="Search...")
-            //- span.serch-bar-slider
-        .setting
-          .icon-box32(@click="isSettingOpen = !isSettingOpen" :class="{active: isSettingOpen}")
-            i.material-icons.md-32 settings
-          .setting-modalless(:class="{active: isSettingOpen}")
-            .close(@click="isSettingOpen = false") x
-            div Theme
-            label.theme
-              .icon-box24(:class="{ active: !isDarkMode }" @click="isDarkMode=false")
-                i.material-icons wb_sunny
-              .icon-box24(:class="{ active: isDarkMode }" @click="isDarkMode=true")
-                i.material-icons mode_night
-        //- .login
-          button
-            span Login
+        button.upload-and-new
+          i.material-icons create_new_folder
+          span Upload / New
+        nav
       main
-        aside
-          ul
-            //- li
-              i.material-icons folder 
-              span My Storage
-            li.active
-              i.material-icons share 
-              span Public
-            //- li
-              i.material-icons delete  
-              span Trash 
-        section.view
-          .breadcrumbs
-            ul
-              li
-                a(href="/" @click="breadcrumbClick($event, '/public');")
-                  i.material-icons home
-              li(v-for="breadcrumb in breadcrumbs" :key="breadcrumb.path")
-                template(v-if="breadcrumb.name != 'home'") &nbsp;/&nbsp;
-                  a(:href="breadcrumb.path" @click="breadcrumbClick($event, breadcrumb.path);") {{ breadcrumb.name }}
-          article.dir-info
-            .icon
-              i.material-icons.md-48 folder_open
-            .dir
+        header 
+        section.explorer
+          article.explorer-header
+            .breadcrumb
+            .dir-info
               .name {{ dirInfo.name }}
-              .info {{ dirInfo.child.length }} items 
+              .sub-info {{ dirInfo.child.length }} items 
                 | · {{ getEasyFileSize(dirInfo.size) }}
-            .download
-            .upload 
-              .icon-box32
-                i.material-icons.md-32 upload
-            .options
-          article.file-list
-            .file-list-header
-              .chkbox
-                input(type="checkbox" name="all-file-chk")
-              .icon 
-              .name Name
-              .date Date 
-              .type Type 
-              .size Size
-            .file-list-body.scrollbar
-              template(v-if="dirInfo.child.length != 0")
-                .row(v-for="file in dirInfo.child" :key="file.name")
-                  .chkbox
-                    input(type="checkbox" name="file-chk" :value="file.name")
-                  .icon
-                    i.material-icons {{ file.extDetail.icon }}
-                  .name 
-                    a(:href="location.pathname + '/' + file.name" target="_blank" @click="linkClick($event, file);") {{ file.name }}
-                  .date {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
-                  .type {{ file.extDetail.cmt }}
-                  .size {{ getEasyFileSize(file.size) }}
-              template(v-if="dirInfo.child.length == 0")
-                .row
-                  .empty-file 파일이 없습니다
-          //- article.file-gallery
-          //- section.file-info
-      footer 
-        //- div {{ dirInfo }}
+          article.explorer-view
+            .table
+              .table-header
+                .icon 
+                .name Name
+                .date Date 
+                .type Type 
+                .size Size
+              .table-body.scrollbar
+                template(v-if="dirInfo.child.length != 0")
+                  .row(v-for="file in dirInfo.child" :key="file.name")
+                    .icon
+                      i.material-icons {{ file.extDetail.icon }}
+                    .name 
+                      a(:href="location.pathname + '/' + file.name" target="_blank" @click="linkClick($event, file);") {{ file.name }}
+                    .date {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
+                    .type {{ file.extDetail.cmt }}
+                    .size {{ getEasyFileSize(file.size) }}
+                template(v-if="dirInfo.child.length == 0")
+                  .row
+                    .empty-file 파일이 없습니다
+      
     script(src="/js/common/common.js")
     script(src="/js/views/vIndex.js")
