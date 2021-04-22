@@ -46,6 +46,7 @@ const app = new Vue({
 
                 for (let i = 0, il = result.child.length; i < il; i++) {
                     result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
+                    result.child[i].isSelected = false;
                 }
 
                 app._data.dirInfo = result;
@@ -60,8 +61,6 @@ const app = new Vue({
                 } else {
                     history.pushState(histState, '', dirPath);
                 }
-
-                app._data.breadcrumbs = app.getBreadcrumbs();
             });
         },
         sortFileList: (fileList, target, direction) => {
@@ -134,37 +133,25 @@ const app = new Vue({
             app._data.isDarkMode = (theme == 'dark');
         },
         linkClick: (event, target) => {
-            if (target.isDirectory) {
-                event.preventDefault();
-                event.stopPropagation();
-                const dirPath = location.pathname + '/' + target.name;
-                app.getDirInfo(dirPath);
-            }
-        },
-        getBreadcrumbs: () => {
-            const pathNameArr = decodeURI(location.pathname).split('/');
-            const breadcrumbs = [];
-
-            if (pathNameArr.length > 1) {
-                breadcrumbs[0] = {
-                    name: 'home',
-                    path: '/' + pathNameArr[1]
-                }
-
-                for (let i = 2, il = pathNameArr.length; i < il; i++) {
-                    breadcrumbs[i - 1] = {
-                        name: pathNameArr[i],
-                        path: breadcrumbs[i - 2].path + '/' + pathNameArr[i]
-                    }
-                }
-            }
-
-            return breadcrumbs;
-        },
-        breadcrumbClick: (event, dirPath) => {
             event.preventDefault();
             event.stopPropagation();
-            app.getDirInfo(dirPath);
+
+            if (target.isSelected) {
+                target.isSelected = false;
+            } else {
+                app._data.dirInfo.child.forEach(child => {
+                    child.isSelected = false;
+                });
+                target.isSelected = true;
+            }
+        },
+        linkDbClick: (event, target) => {
+            if (target.isDirectory) {
+                const dirPath = location.pathname + '/' + target.name;
+                app.getDirInfo(dirPath);
+            } else {
+                window.open(event.target.href, '');
+            }
         }
     },
     computed: {

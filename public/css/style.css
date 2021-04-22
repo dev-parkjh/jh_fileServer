@@ -16,13 +16,12 @@
 :root {
   --aside-witdh: 260px;
   --header-height: 64px;
-  /* --dir-info-height: 78px;
-  --breadcrumbs-height: 0px;
+  --explorer-header-height: 78px;
   --file-table-header-height: 36px;
-  --file-table-body-height: calc(100vh - var(--header-height) - var(--breadcrumbs-height) - var(--dir-info-height) - var(--file-table-header-height) - 2px); */
+  --file-table-body-height: calc(100vh - var(--header-height) - var(--explorer-header-height) - var(--file-table-header-height));
   --main-color: #333333;
   --main-hover-color: #eeeeee;
-  --main-sub-color: #222222;
+  --main-sub-color: #444444;
   --main-background-color: #ffffff;
   --item-background-color: #f2f2f2;
   --border-color: #cccccc;
@@ -200,10 +199,9 @@ header {
   margin-top: 12px;
 }
 
-
-
 main {
   flex: 1;
+  display: flex;
 }
 
 aside {
@@ -239,6 +237,156 @@ aside {
   width: 0px;
   height: 0px;
 }
+
+.explorer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.explorer-header {
+  height: var(--explorer-header-height);
+  position: relative;
+}
+
+.explorer-header>.design-bar {
+  top: 22px;
+  left: 6px;
+  position: absolute;
+  height: 44px;
+  /* width: 3px; */
+  background: var(--main-sub-color);
+  opacity: 0.9;
+}
+
+.explorer-header>.target {
+  top: 12px;
+  left: 12px;
+  position: absolute;
+}
+
+.explorer-header>.target>i {
+  margin: 8px;
+  vertical-align: top;
+}
+
+.target-info {
+  display: inline-block;
+  margin-left: 4px;
+}
+
+.target-info>.name {
+  font-size: x-large;
+}
+
+.target-info>.sub-info {
+  font-size: small;
+  margin-left: 4px;
+}
+
+.explorer-view>.table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.explorer-view>.table a,
+.explorer-view>.table a:link,
+.explorer-view>.table a:visited {
+  text-decoration: none;
+  color: var(--main-color);
+}
+
+.table-header {
+  padding-left: 12px;
+  margin-left: 16px;
+  margin-right: 16px;
+  height: var(--file-table-header-height);
+  line-height: var(--file-table-header-height);
+  box-sizing: border-box;
+  display: flex;
+  font-weight: bold;
+  border-bottom: #cccccc solid 1px;
+}
+
+.table-body {
+  margin-left: 16px;
+  /* padding-right: 2px; */
+  display: flex;
+  flex-direction: column;
+  height: var(--file-table-body-height);
+}
+
+
+.table-body>.row {
+  display: flex;
+  height: 52px;
+  min-height: 52px;
+  line-height: 52px;
+  border-radius: 10px;
+  padding-left: 12px;
+  /* border-bottom: #cccccc solid 1px; */
+  transition: background-color 100ms;
+}
+
+.table-body>.row.active {
+  background-color: var(--main-hover-color);
+}
+
+.table-body>.row:hover {
+  background-color: var(--main-hover-color);
+  cursor: pointer;
+}
+
+.table .chkbox {
+  width: 32px;
+  text-align: center;
+}
+
+.table .icon {
+  width: 46px;
+  text-align: center;
+}
+
+.table .icon>i {
+  line-height: 52px;
+  /* margin-left: 12px; */
+}
+
+.table .name {
+  flex: 1;
+  padding-left: 6px;
+  padding-right: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.table .name>a {
+  display: block;
+  width: 100%;
+}
+
+.table .date,
+.table .type {
+  width: 130px;
+}
+
+.table .size {
+  width: 90px;
+}
+
+.table .empty-file {
+  height: 70px;
+  line-height: 70px;
+  flex: 1;
+  text-align: center;
+}
+
+.row.footer {}
+
 
 /* 아이콘 관련 영역 */
 .icon-box24 {
