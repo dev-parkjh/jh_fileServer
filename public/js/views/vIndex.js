@@ -95,6 +95,9 @@ const app = new Vue({
             let icon = '';
             let iconColor = '';
             let cmt = '';
+            let mime = '';
+
+            ext = ext.toLowerCase();
 
             if (ext != '') cmt = ext.substring(1, ext.length);
 
@@ -103,27 +106,41 @@ const app = new Vue({
                     icon = 'folder';
                     iconColor = '';
                     cmt = '폴더';
+                    mime = 'application/octet-stream';
                     break;
                 case '.txt':
                     icon = 'edit_note';
                     iconColor = '';
                     cmt = '텍스트 문서';
+                    mime = 'text/plain';
                     break;
                 case '.mp4':
                     icon = 'movie';
                     iconColor = '';
                     cmt += ' 동영상';
+                    mime = 'video/mp4';
+                    break;
+                case '.png':
+                case '.bmp':
+                case '.jpg':
+                case '.gif':
+                    icon = 'image';
+                    iconColor = '';
+                    cmt += ' 이미지';
+                    mime = 'image/' + cmt;
                     break;
                 default:
                     icon = 'file_present';
                     iconColor = '';
                     cmt += ' 파일';
+                    mime = 'application/octet-stream';
             }
 
             return {
                 icon,
                 iconColor,
-                cmt
+                cmt,
+                mime
             };
         },
         themeSetting: () => {
@@ -136,13 +153,20 @@ const app = new Vue({
             event.preventDefault();
             event.stopPropagation();
 
-            if (target.isSelected) {
-                target.isSelected = false;
+            if (event.ctrlKey) {
+                target.isSelected = !target.isSelected;
             } else {
+                let temp = target.isSelected;
+                let selectedCnt = 0;
+
                 app._data.dirInfo.child.forEach(child => {
+                    if (child.isSelected) selectedCnt++;
                     child.isSelected = false;
                 });
-                target.isSelected = true;
+
+                target.isSelected = !temp;
+
+                if (selectedCnt > 1) target.isSelected = true;
             }
         },
         linkDbClick: (event, target) => {
@@ -150,11 +174,24 @@ const app = new Vue({
                 const dirPath = location.pathname + '/' + target.name;
                 app.getDirInfo(dirPath);
             } else {
+                target.isSelected = false;
                 window.open(event.target.href, '');
             }
+        },
+        fileDrag: event => {
+            // 선택된 항목이 여러개인 경우 압축해서 다운로드 받기
+
+            const file = event.target;
+            let fileDetails;
+
+            if (typeof file.dataset == 'undefined') {
+                fileDetails = file.getAttribute("data-downloadurl");
+            } else {
+                fileDetails = file.dataset.downloadurl;
+            }
+
+            event.dataTransfer.setData("DownloadURL", fileDetails);
         }
-    },
-    computed: {
     },
     mounted: () => {
         window.addEventListener('popstate', () => {

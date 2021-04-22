@@ -60,7 +60,7 @@ html
                     .icon
                       i.material-icons {{ file.extDetail.icon }}
                     .name 
-                      a(:href="location.pathname + '/' + file.name", target="_blank", @click="linkClick($event, file);", @dblclick="linkDbClick($event, file);") {{ file.name }}
+                      a.drag-able-file(:href="location.pathname + '/' + file.name", target="_blank", @click="linkClick($event, file);", @dblclick="linkDbClick($event, file);", @dragstart="fileDrag($event);", :data-downloadurl="file.extDetail.mime+':'+file.name+':'+location.href + '/' + file.name", draggable="true") {{ file.name }}
                     .date {{ file.mtime.substr(0, file.mtime.indexOf('T')) }}
                     .type {{ file.extDetail.cmt }}
                     .size {{ getEasyFileSize(file.size) }}

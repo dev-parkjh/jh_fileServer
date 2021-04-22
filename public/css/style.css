@@ -334,7 +334,7 @@ aside {
 }
 
 .table-body>.row:hover {
-  background-color: var(--main-hover-color);
+  /* background-color: var(--main-hover-color); */
   cursor: pointer;
 }
 
