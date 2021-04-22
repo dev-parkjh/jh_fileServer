@@ -178,18 +178,12 @@ const app = new Vue({
                 window.open(event.target.href, '');
             }
         },
-        fileDrag: event => {
+        fileDrag: (event, target) => {
             // 선택된 항목이 여러개인 경우 압축해서 다운로드 받기
-
-            const file = event.target;
-            let fileDetails;
-
-            if (typeof file.dataset == 'undefined') {
-                fileDetails = file.getAttribute("data-downloadurl");
-            } else {
-                fileDetails = file.dataset.downloadurl;
-            }
-
+            // if(target.isDirectory) {
+            //     // 폴더일경우 압축해서 다운로드
+            // }
+            const fileDetails = target.extDetail.mime + ':' + target.name + ':' + location.href + '/' + target.name;
             event.dataTransfer.setData("DownloadURL", fileDetails);
         }
     },
