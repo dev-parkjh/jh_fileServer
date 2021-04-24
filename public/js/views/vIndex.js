@@ -153,7 +153,7 @@ const app = new Vue({
             event.preventDefault();
             event.stopPropagation();
 
-            if (event.ctrlKey) {
+            if (event.ctrlKey || macKeys.cmdKey) {
                 target.isSelected = !target.isSelected;
             } else {
                 let temp = target.isSelected;
@@ -170,6 +170,10 @@ const app = new Vue({
             }
         },
         linkDbClick: (event, target) => {
+            if (event.ctrlKey || macKeys.cmdKey) {
+                return false;
+            }
+
             if (target.isDirectory) {
                 const dirPath = location.pathname + '/' + target.name;
                 app.getDirInfo(dirPath);
@@ -177,6 +181,11 @@ const app = new Vue({
                 target.isSelected = false;
                 window.open(event.target.href, '');
             }
+        },
+        explorerBackgroundClick: () => {
+            app._data.dirInfo.child.forEach(child => {
+                child.isSelected = false;
+            });
         },
         fileDrag: (event, target) => {
             // 선택된 항목이 여러개인 경우 압축해서 다운로드 받기

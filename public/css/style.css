@@ -17,7 +17,7 @@
   --aside-witdh: 260px;
   --header-height: 64px;
   --explorer-header-height: 78px;
-  --file-table-header-height: 36px;
+  --file-table-header-height: 42px;
   --file-table-body-height: calc(100vh - var(--header-height) - var(--explorer-header-height) - var(--file-table-header-height));
   --main-color: #333333;
   --main-hover-color: #eeeeee;
@@ -246,17 +246,7 @@ aside {
 
 .explorer-header {
   height: var(--explorer-header-height);
-  position: relative;
-}
-
-.explorer-header>.design-bar {
-  top: 22px;
-  left: 6px;
-  position: absolute;
-  height: 44px;
-  /* width: 3px; */
-  background: var(--main-sub-color);
-  opacity: 0.9;
+  /* position: relative; */
 }
 
 .explorer-header>.target {
@@ -270,9 +260,16 @@ aside {
   vertical-align: top;
 }
 
+.explorer-header>.back {
+  position: absolute;
+  top: 20px;
+  left: 4px;
+}
+
 .target-info {
   display: inline-block;
-  margin-left: 4px;
+  margin-left: 54px;
+  margin-top: 6px;
 }
 
 .target-info>.name {
@@ -384,9 +381,6 @@ aside {
   flex: 1;
   text-align: center;
 }
-
-.row.footer {}
-
 
 /* 아이콘 관련 영역 */
 .icon-box24 {
