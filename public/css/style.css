@@ -21,6 +21,7 @@
   --file-table-body-height: calc(100vh - var(--header-height) - var(--explorer-header-height) - var(--file-table-header-height));
   --main-color: #333333;
   --main-hover-color: #eeeeee;
+  --main-active-color: #dddddd;
   --main-sub-color: #444444;
   --main-background-color: #ffffff;
   --item-background-color: #f2f2f2;
@@ -31,6 +32,7 @@
 body[theme="dark"] {
   --main-color: #cccccc;
   --main-hover-color: #333333;
+  --main-active-color: #333333;
   --main-sub-color: #aaaaaa;
   --main-background-color: #222222;
   --item-background-color: #444444;
@@ -70,6 +72,7 @@ button {
 #app {
   display: flex;
   width: 100vw;
+  min-width: 900px;
   height: 100vh;
   flex-direction: column;
 }
@@ -102,6 +105,12 @@ a.material-icons.md-32:hover::before {
   background-color: var(--main-hover-color);
 }
 
+/* modal/modalless */
+
+.modalless {
+  position: absolute;
+}
+
 /* 헤더 */
 
 header {
@@ -120,8 +129,15 @@ header {
   display: flex;
 }
 
+.logo>i {
+  margin-left: 14px;
+  margin-right: -14px;
+  opacity: 0.6;
+}
+
 .logo>.site-name {
-  margin-left: 20px;
+  margin-top: -3px;
+  margin-left: 24px;
   display: inline;
   background-clip: text;
   background-image: url(/img/svg/logo.svg);
@@ -171,7 +187,87 @@ header {
 
 a.settings.material-icons.md-32 {
   margin: 0px 16px;
+  transition: transform 400ms;
 }
+
+.settings.active {
+  transform: rotate(120deg);
+}
+
+.settings.active::before {
+  background-color: var(--main-hover-color);
+}
+
+.settings-menu {
+  position: relative;
+}
+
+.settings-menu>.modalless {
+  top: 40px;
+  right: 18px;
+  width: 140px;
+  height: 0px;
+  background-color: var(--item-background-color);
+  transition: height 400ms ease;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgb(60 60 60 / 30%);
+}
+
+.settings-menu.active>.modalless {
+  height: 80px;
+}
+
+.settings-menu>.modalless>.close {
+  margin: 0px;
+  position: absolute;
+  top: 3px;
+  right: 12px;
+  font-family: 'Noto-Snans', sans-serif;
+  cursor: pointer;
+  font-size: large;
+}
+
+.settings-menu>.modalless>div {
+  margin-top: 8px;
+  margin-left: 10px;
+  font-family: 'BMJUA', sans-serif;
+  font-size: large;
+}
+
+.settings-menu>.modalless>.theme {
+  display: block;
+  margin-top: 8px;
+  margin-left: 4px;
+}
+
+.settings-menu>.modalless>.theme>.icon-box {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border-radius: 30px;
+  margin-left: 8px;
+}
+
+.settings-menu>.modalless>.theme>.icon-box:hover {
+  cursor: pointer;
+  background-color: var(--main-active-color);
+}
+
+.settings-menu>.modalless>.theme>.icon-box.active {
+  background-color: var(--main-active-color);
+  color: var(--theme-point-color);
+}
+
+.settings-menu>.modalless>.theme>.icon-box>a {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
 
 /* 메인 */
 
@@ -184,6 +280,7 @@ main {
 
 aside {
   width: var(--aside-witdh);
+  min-width: var(--aside-witdh);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -287,7 +384,7 @@ aside {
 }
 
 .table-body>.row:hover {
-  /* background-color: var(--main-hover-color); */
+  background-color: var(--main-hover-color);
   cursor: pointer;
 }
 
@@ -304,20 +401,15 @@ aside {
   flex: 1;
   padding-left: 6px;
   padding-right: 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  height: 100%;
 }
 
 .table .name>a {
-  display: block;
+  display: -webkit-box;
   width: 100%;
-  height: 100%;
-  align-items: center;
-  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .table .date,

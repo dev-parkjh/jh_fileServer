@@ -21,14 +21,15 @@ html
             input#search(type="text", name="search", placeholder="Search...", autocomplete="off", @focus="isSearchBarActive=true;", @blur="isSearchBarActive=false;", v-model="searchText")
             i.material-icons.md-24.close(v-show="searchText.length>0", @click="searchText='';") close
         a.settings.material-icons.md-32(:class="{ active : isSettingOpen }", @click="isSettingOpen = !isSettingOpen") settings
-            //- .setting-modalless(:class="{active: isSettingOpen}")
-              .close(@click="isSettingOpen = false") x
-              div Theme
-              label.theme
-                .icon-box24(:class="{ active: !isDarkMode }", @click="isDarkMode=false")
-                  i.material-icons.md-24 wb_sunny
-                .icon-box24(:class="{ active: isDarkMode }", @click="isDarkMode=true")
-                  i.material-icons.md-24 mode_night
+        .settings-menu(:class="{active: isSettingOpen}")
+          .modalless
+            .close(@click="isSettingOpen = false") x
+            div Theme
+            label.theme
+              .icon-box(:class="{ active: !isDarkMode }", @click="isDarkMode=false")
+                a.material-icons wb_sunny
+              .icon-box(:class="{ active: isDarkMode }", @click="isDarkMode=true")
+                a.material-icons mode_night
       main
         aside 
           button.upload-and-new(@click="document.getElementById('input-upload').click()")
