@@ -20,11 +20,8 @@ html
             i.material-icons.md-24 search
             input#search(type="text", name="search", placeholder="Search...", autocomplete="off", @focus="isSearchBarActive=true;", @blur="isSearchBarActive=false;", v-model="searchText")
             i.material-icons.md-24.close(v-show="searchText.length>0", @click="searchText='';") close
-        .menu 
-          .setting
-            .icon-box32(:class="{ active : isSettingOpen }", @click="isSettingOpen = !isSettingOpen")
-              i.material-icons.md-32 settings
-            .setting-modalless(:class="{active: isSettingOpen}")
+        a.settings.material-icons.md-32(:class="{ active : isSettingOpen }", @click="isSettingOpen = !isSettingOpen") settings
+            //- .setting-modalless(:class="{active: isSettingOpen}")
               .close(@click="isSettingOpen = false") x
               div Theme
               label.theme
@@ -40,14 +37,12 @@ html
             input#input-upload(type="file", multiple="multiple")
         section.explorer
           article.explorer-header
+            a.back.material-icons.md-32(@click="history.back();") arrow_back
             .target
-              //- i.material-icons.md-48 folder_open
               .target-info
                 .name {{ dirInfo.name }}
                 .sub-info {{ dirInfo.child.length }} items 
                   span(v-show="dirInfo.size != 0") · {{ getEasyFileSize(dirInfo.size) }}
-            .back.icon-box32(@click="history.back();")
-              i.material-icons.md-32 arrow_back
           article.explorer-view
             .table
               .table-header

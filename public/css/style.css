@@ -16,7 +16,7 @@
 :root {
   --aside-witdh: 260px;
   --header-height: 64px;
-  --explorer-header-height: 78px;
+  --explorer-header-height: 88px;
   --file-table-header-height: 42px;
   --file-table-body-height: calc(100vh - var(--header-height) - var(--explorer-header-height) - var(--file-table-header-height));
   --main-color: #333333;
@@ -53,7 +53,8 @@ body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
-div {
+div,
+button {
   margin: 0px;
   padding: 0px;
 }
@@ -73,27 +74,50 @@ div {
   flex-direction: column;
 }
 
+/* 아이콘 */
+
+a.material-icons.md-32 {
+  position: relative;
+  margin: 10px;
+}
+
+a.material-icons.md-32:hover {
+  cursor: pointer;
+}
+
+a.material-icons.md-32::before {
+  display: block;
+  width: 50px;
+  height: 50px;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+  z-index: -1;
+}
+
+a.material-icons.md-32:hover::before {
+  background-color: var(--main-hover-color);
+}
+
+/* 헤더 */
+
 header {
   height: var(--header-height);
+  min-height: var(--header-height);
   border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
-  width: 100vw;
+  /* width: 100vw; */
   display: flex;
+  align-items: center;
 }
 
 .logo {
   width: var(--aside-witdh);
   min-width: var(--aside-witdh);
-  height: var(--header-height);
-  line-height: var(--header-height);
   display: flex;
-}
-
-.logo>i {
-  line-height: 64px;
-  margin-left: 14px;
-  margin-right: -10px;
-  opacity: 0.6;
 }
 
 .logo>.site-name {
@@ -102,7 +126,7 @@ header {
   background-clip: text;
   background-image: url(/img/svg/logo.svg);
   font-family: 'BMJUA', sans-serif;
-  font-size: 28px;
+  font-size: 26px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -114,10 +138,11 @@ header {
 .search>.bar {
   max-width: 720px;
   height: 48px;
-  background: var(--item-background-color);
+  background-color: var(--item-background-color);
   border-radius: 8px;
   display: flex;
-  margin: 8px 4px;
+  align-items: center;
+  /* margin: 8px 4px; */
   transition: box-shadow 200ms;
 }
 
@@ -127,7 +152,6 @@ header {
 
 .search>.bar>i {
   opacity: 0.7;
-  line-height: 48px;
   margin-left: 16px;
   margin-right: 10px;
 }
@@ -145,64 +169,18 @@ header {
   cursor: pointer;
 }
 
-.setting {
-  position: relative;
+a.settings.material-icons.md-32 {
+  margin: 0px 16px;
 }
 
-.setting-modalless {
-  display: none;
-}
-
-.setting-modalless.active {
-  display: block;
-  width: 180px;
-  height: 86px;
-  position: absolute;
-  left: -185px;
-  top: 14px;
-  background-color: var(--item-background-color);
-  border-radius: 10px;
-  opacity: 1;
-  animation: fadein 0.4s;
-}
-
-.setting-modalless:after {
-  border-top: 10px solid transparent;
-  border-left: 12px solid var(--item-background-color);
-  border-right: 0px solid transparent;
-  border-bottom: 10px solid transparent;
-  content: "";
-  position: absolute;
-  top: 8px;
-  left: 175px;
-}
-
-.setting-modalless>div {
-  margin-top: 10px;
-  margin-left: 14px;
-  font-family: 'BMJUA', sans-serif;
-  font-size: large;
-}
-
-.setting-modalless>.close {
-  margin: 0px;
-  position: absolute;
-  top: 4px;
-  right: 12px;
-  font-family: 'Noto-Snans', sans-serif;
-  cursor: pointer;
-  font-size: large;
-}
-
-.setting-modalless>.theme {
-  display: block;
-  margin-top: 12px;
-}
+/* 메인 */
 
 main {
   flex: 1;
   display: flex;
 }
+
+/* 좌측 메뉴 */
 
 aside {
   width: var(--aside-witdh);
@@ -214,7 +192,8 @@ aside {
 .upload-and-new {
   margin: 20px 18px 20px 14px;
   height: 48px;
-  line-height: 46px;
+  display: flex;
+  align-items: center;
   font-size: 18px;
   border-radius: 8px;
   background-color: var(--item-background-color);
@@ -224,19 +203,16 @@ aside {
 }
 
 .upload-and-new>.material-icons {
-  line-height: 46px;
-  margin-left: 8px;
-  margin-right: 14px;
-}
-
-.upload-and-new>span {
-  vertical-align: top;
+  margin-left: 16px;
+  margin-right: 12px;
 }
 
 .upload-and-new>input {
   width: 0px;
   height: 0px;
 }
+
+/* 탐색기 */
 
 .explorer {
   display: flex;
@@ -246,30 +222,12 @@ aside {
 
 .explorer-header {
   height: var(--explorer-header-height);
-  /* position: relative; */
+  display: flex;
+  align-items: center;
 }
 
 .explorer-header>.target {
-  top: 12px;
-  left: 12px;
-  position: absolute;
-}
-
-.explorer-header>.target>i {
-  margin: 8px;
-  vertical-align: top;
-}
-
-.explorer-header>.back {
-  position: absolute;
-  top: 20px;
-  left: 4px;
-}
-
-.target-info {
-  display: inline-block;
-  margin-left: 54px;
-  margin-top: 6px;
+  margin-left: 6px;
 }
 
 .target-info>.name {
@@ -299,27 +257,25 @@ aside {
   margin-left: 16px;
   margin-right: 16px;
   height: var(--file-table-header-height);
-  line-height: var(--file-table-header-height);
   box-sizing: border-box;
   display: flex;
+  align-items: center;
   font-weight: bold;
   border-bottom: #cccccc solid 1px;
 }
 
 .table-body {
   margin-left: 16px;
-  /* padding-right: 2px; */
   display: flex;
   flex-direction: column;
   height: var(--file-table-body-height);
 }
 
-
 .table-body>.row {
   display: flex;
+  align-items: center;
   height: 52px;
   min-height: 52px;
-  line-height: 52px;
   border-radius: 10px;
   padding-left: 12px;
   /* border-bottom: #cccccc solid 1px; */
@@ -335,11 +291,6 @@ aside {
   cursor: pointer;
 }
 
-.table .chkbox {
-  width: 32px;
-  text-align: center;
-}
-
 .table .icon {
   width: 46px;
   text-align: center;
@@ -347,7 +298,6 @@ aside {
 
 .table .icon>i {
   line-height: 52px;
-  /* margin-left: 12px; */
 }
 
 .table .name {
@@ -359,11 +309,15 @@ aside {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+  height: 100%;
 }
 
 .table .name>a {
   display: block;
   width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
 }
 
 .table .date,
@@ -380,50 +334,4 @@ aside {
   line-height: 70px;
   flex: 1;
   text-align: center;
-}
-
-/* 아이콘 관련 영역 */
-.icon-box24 {
-  display: inline-block;
-  margin-left: 18px;
-  border-radius: 26px;
-  width: 30px;
-  height: 30px;
-  background-color: var(--border-color);
-  text-align: center;
-}
-
-.icon-box24:hover {
-  cursor: pointer;
-}
-
-.icon-box24>i {
-  line-height: 31px;
-}
-
-.icon-box24.active {
-  color: var(--theme-point-color);
-}
-
-.icon-box32 {
-  font-size: 32px;
-  border-radius: 30px;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  line-height: 56px;
-  display: inline-block;
-}
-
-.icon-box32:hover {
-  background-color: var(--main-hover-color);
-  cursor: pointer;
-}
-
-.icon-box32.active {
-  background-color: var(--main-hover-color);
-}
-
-header .icon-box32 {
-  margin: 6px;
 }
