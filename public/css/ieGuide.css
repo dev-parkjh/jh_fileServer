@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url(/fonts/NotoSansKR-Light.woff2) format('woff2');
+}
+
+@font-face {
+    font-family: 'BMJUA';
+    font-weight: normal;
+    font-style: normal;
+    src: url(/fonts/BMJUA.woff) format('woff');
+}
+
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    position: relative;
+    background-color: var(--main-background-color);
+    color: var(--main-color);
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.no-drag {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+.ie-guide {
+    width: 640px;
+    min-width: 500px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-art {
+    font-family: 'BMJUA', sans-serif;
+    /* font-weight: bold; */
+    position: relative;
+    height: 240px;
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: normal;
+    display: inline-block;
+    margin: 0px;
+    color: #64c9f1;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: normal;
+    display: inline-block;
+    margin: 0px;
+    position: absolute;
+    right: -10px;
+    top: 72px;
+}
+
+.stop {
+    position: absolute;
+    top: 80px;
+    left: 300px;
+}
+
+.ie {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 20px;
+    left: 200px;
+    transform: rotate(-10deg);
+    opacity: 0.7;
+}
+
+.sad {
+    position: absolute;
+    bottom: 42px;
+    left: 210px;
+    transform: rotate(-10deg);
+}
+
+.really {
+    position: absolute;
+    bottom: 70px;
+    left: 190px;
+    transform: rotate(-10deg);
+}
+
+.yes {
+    position: absolute;
+    bottom: 30px;
+    left: 374px;
+}
+
+.site-info {
+    bottom: 0px;
+    right: 16px;
+    position: fixed;
+    color: #888888;
+    font-family: 'BMJUA', sans-serif;
+}

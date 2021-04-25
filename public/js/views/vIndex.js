@@ -12,7 +12,10 @@ const app = new Vue({
                 target: 'name',
                 direction: 'asc'
             },
+            searchText: '',
+            breadcrumbs: [],
             isDarkMode: false,
+            isSearchBarActive: false,
             isSettingOpen: false
         }
     },
@@ -43,6 +46,7 @@ const app = new Vue({
 
                 for (let i = 0, il = result.child.length; i < il; i++) {
                     result.child[i].extDetail = app.getExtDetail(result.child[i].ext);
+                    result.child[i].isSelected = false;
                 }
 
                 app._data.dirInfo = result;
@@ -91,6 +95,9 @@ const app = new Vue({
             let icon = '';
             let iconColor = '';
             let cmt = '';
+            let mime = '';
+
+            ext = ext.toLowerCase();
 
             if (ext != '') cmt = ext.substring(1, ext.length);
 
@@ -99,27 +106,41 @@ const app = new Vue({
                     icon = 'folder';
                     iconColor = '';
                     cmt = '폴더';
+                    mime = 'application/octet-stream';
                     break;
                 case '.txt':
                     icon = 'edit_note';
                     iconColor = '';
                     cmt = '텍스트 문서';
+                    mime = 'text/plain';
                     break;
                 case '.mp4':
                     icon = 'movie';
                     iconColor = '';
                     cmt += ' 동영상';
+                    mime = 'video/mp4';
+                    break;
+                case '.png':
+                case '.bmp':
+                case '.jpg':
+                case '.gif':
+                    icon = 'image';
+                    iconColor = '';
+                    cmt += ' 이미지';
+                    mime = 'image/' + cmt;
                     break;
                 default:
                     icon = 'file_present';
                     iconColor = '';
                     cmt += ' 파일';
+                    mime = 'application/octet-stream';
             }
 
             return {
                 icon,
                 iconColor,
-                cmt
+                cmt,
+                mime
             };
         },
         themeSetting: () => {
@@ -128,13 +149,51 @@ const app = new Vue({
             document.body.setAttribute('theme', theme);
             app._data.isDarkMode = (theme == 'dark');
         },
-        linkClick: (event, child) => {
-            if (child.isDirectory) {
-                event.preventDefault();
-                event.stopPropagation();
-                const dirPath = location.pathname + '/' + child.name;
-                app.getDirInfo(dirPath);
+        linkClick: (event, target) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (event.ctrlKey || macKeys.cmdKey) {
+                target.isSelected = !target.isSelected;
+            } else {
+                let temp = target.isSelected;
+                let selectedCnt = 0;
+
+                app._data.dirInfo.child.forEach(child => {
+                    if (child.isSelected) selectedCnt++;
+                    child.isSelected = false;
+                });
+
+                target.isSelected = !temp;
+
+                if (selectedCnt > 1) target.isSelected = true;
             }
+        },
+        linkDbClick: (event, target) => {
+            if (event.ctrlKey || macKeys.cmdKey) {
+                return false;
+            }
+
+            if (target.isDirectory) {
+                const dirPath = location.pathname + '/' + target.name;
+                app.getDirInfo(dirPath);
+            } else {
+                target.isSelected = false;
+                window.open(event.target.href, '');
+            }
+        },
+        explorerBackgroundClick: () => {
+            app._data.dirInfo.child.forEach(child => {
+                child.isSelected = false;
+            });
+        },
+        fileDrag: (event, target) => {
+            // 선택된 항목이 여러개인 경우 압축해서 다운로드 받기
+            // if(target.isDirectory) {
+            //     // 폴더일경우 압축해서 다운로드
+            // }
+            const fileDetails = target.extDetail.mime + ':' + target.name + ':' + location.href + '/' + target.name;
+            event.dataTransfer.setData("DownloadURL", fileDetails);
         }
     },
     mounted: () => {

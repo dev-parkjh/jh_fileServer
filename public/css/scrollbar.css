@@ -1,9 +1,9 @@
 :root {
-    --scrollber-background-color: white;
+    --scrollber-background-color: #ffffff;
 }
 
 body[theme="dark"] {
-    --scrollber-background-color: #1e1e1e;
+    --scrollber-background-color: #222222;
 }
 
 .scrollbar {
