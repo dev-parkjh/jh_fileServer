@@ -1,5 +1,5 @@
 /**
- * 파일 업로드를 관리하는 스크립트
+ * 파일을 관리하는 스크립트
  */
 const fs = require('fs');
 const path = require("path");
@@ -33,7 +33,7 @@ const getAllSubFilePathList = (dirPath, fileArray) => {
 
 /**
   * 경로를 받아 폴더 용량을 반환합니다.
-  * @param {String} filePath
+  * @param {String} dirPath
   * @returns {number} 폴더용량(Byte)
   */
 const getDirSize = dirPath => {
@@ -70,7 +70,7 @@ const getExt = fileName => {
     let ext = '';
     let dotPos = fileName.lastIndexOf('.');
 
-    if (dotPos != -1) {
+    if (dotPos > -1) {
         ext = fileName.substring(dotPos, fileName.length).toLowerCase();
     }
 
@@ -92,8 +92,8 @@ const getDirInfo = dirPath => {
         subFileList.forEach((subFile, index) => {
             const subFilePath = dirPath + path.sep + subFile;
             const subFileStats = fs.statSync(subFilePath);
-            let subFileSize = 0;
-            let subFileExt = '';
+            let subFileSize;
+            let subFileExt;
 
             if (subFileStats.isDirectory()) {
                 subFileSize = getDirSize(subFilePath);
